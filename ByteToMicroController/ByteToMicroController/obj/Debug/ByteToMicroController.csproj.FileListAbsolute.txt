@@ -1,0 +1,9 @@
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe.config
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.pdb
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csprojAssemblyReference.cache
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Form1.resources
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Properties.Resources.resources
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
+C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
