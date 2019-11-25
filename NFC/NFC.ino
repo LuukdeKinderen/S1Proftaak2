@@ -40,14 +40,56 @@ void loop() {
       nuidPICC[i] = rfid.uid.uidByte[i];
     }
    
-  printHex(rfid.uid.uidByte, rfid.uid.size);
+  //printHex(rfid.uid.uidByte, rfid.uid.size);
     Serial.println();
   rfid.PICC_HaltA();
 
- 
- // rfid.PCD_StopCrypto1();
-}
+  String payloadString = "FxFF 1 ";
+  for (int i; i < 4; i++) {
+    payloadString += nuidPICC[i];
+  }
+  payloadString += " FxF0";
+  Serial.println(payloadString);
+  
+//  Serial.println("FxFF");
+//  Serial.println("1");
+//  printHex(rfid.uid.uidByte, rfid.uid.size);
 
+ //Recieving data from c#
+ if (Serial.available()) {
+    if (Serial.read() == "FxFF") {
+      char readArray[500];
+      float startTime = millis();
+      int count = 0;
+       
+      while (!Serial.available()) {
+          if ((startTime - millis()) > 5000) {
+            return;
+          }
+        }
+      
+      char adress = Serial.read(); 
+
+      while (true) {
+        while (!Serial.available()) {
+          if ((startTime - millis()) > 5000) {
+            return;
+          }
+        }
+
+        readArray[count] = Serial.read();
+        count++;
+
+        if (readArray[count] == 'FXF0') {
+          RunCodeIfRead();
+          return;
+        }
+      }
+    }
+  }
+
+  
+}
 
 
 void printHex(byte *buffer, byte bufferSize) {
@@ -55,4 +97,10 @@ void printHex(byte *buffer, byte bufferSize) {
     Serial.print(buffer[i] < 0x10 ? " 0" : " ");
     Serial.print(buffer[i], HEX);
   }
+  
+}
+
+
+void RunCodeIfRead() {
+  
 }

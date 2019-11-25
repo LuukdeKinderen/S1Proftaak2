@@ -7,3 +7,13 @@ C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debu
 C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
 C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
 C:\Users\brofl\source\repos\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe.config
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.pdb
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csprojAssemblyReference.cache
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Form1.resources
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Properties.Resources.resources
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.CoreCompileInputs.cache
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
+C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb

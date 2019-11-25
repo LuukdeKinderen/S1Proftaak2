@@ -14,40 +14,28 @@ namespace ByteToMicroController
 {
     public partial class Form1 : Form
     {
-        SerialPort serialPort1 = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
+        SerialPort serialPort1 = new SerialPort("COM4", 9600);
         public Form1()
         {
             InitializeComponent();
-
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void loop()
         {
+
             serialPort1.Open();
-            serialPort1.Write("1");
+            serialPort1.ReadLine();
+            string receivePayload = serialPort1.ReadLine();
+            OutputBox.Text = receivePayload;
+            Console.WriteLine(receivePayload);
+
             serialPort1.Close();
+            loop();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            serialPort1.Open();
-            serialPort1.Write("yeet");
-            byte[] byteArray = new byte[300];
-
-            serialPort1.Read(byteArray, 0, 1);
-            serialPort1.Close();
-        }
-
-        public static void SerialDataReceivedEventHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-
-            SerialPort serialPort1 = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
-            serialPort1.Open();
-            serialPort1.Write("yeet");
-            byte[] byteArray = new byte[300];
-
-            serialPort1.Read(byteArray, 0, 1);
-            serialPort1.Close();
+            loop();
         }
             
         
