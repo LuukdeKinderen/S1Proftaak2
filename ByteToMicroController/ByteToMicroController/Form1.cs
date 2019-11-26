@@ -35,17 +35,9 @@ namespace ByteToMicroController
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-            string inputString = "hsaflkajfjkladsjlkfjl";
-            char[] inputChar = inputString.ToCharArray();
-            char adress = inputChar[6];
-            string substring = inputString.Substring((inputString.IndexOf("FxFF") + 7), (inputString.IndexOf("FxF0") -1));
-            
             loop();
-
         }
             
-        //substrings
-        // FxFF _ Binnenkomede Code FxF0
+        
     }
 }
