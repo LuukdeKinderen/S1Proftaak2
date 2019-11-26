@@ -11,31 +11,33 @@ namespace TreinSchemaCreator
     {
         static List<Station> stations;
         static List<Train> trains;
-        private int[] spoor = new int[120];
+        public static List<Rail> rails = new List<Rail>();
 
 
 
         static void Main(string[] args)
         {
-
-            stations = new List<Station>{
-                new Station("CL",0,true),
-                new Station("KF",24,false),
-                new Station("FT",40,true),
-                new Station("VH",70,false),
-                new Station("KP",90,false),
-                new Station("JP",116,true),
+            for (int i = 0; i < 120; i++)
+            {
+                rails.Add(new Rail(i));
+            }
+            stations = new List<Station>(){
+                new Station("CL",rails[0],true),
+                new Station("KF",rails[24],false),
+                new Station("FT",rails[40],true),
+                new Station("VH",rails[70],false),
+                new Station("KP",rails[90],false),
+                new Station("JP",rails[116],true),
             };
             trains = new List<Train>
             {
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",true,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,stations[0]),
-               //new Train("S1",false,new int[]{1,2,1,0},0,true,stations[0]),
+               new Train("S1",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
+               new Train("S2",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
+               new Train("S3",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
+               new Train("S4",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
+               new Train("I1",true,new Station[]{ stations[2], stations[5], stations[2], stations[0]},0,true,rails[0]),
+               new Train("S5",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
+               new Train("S6",false,new Station[]{ stations[1], stations[2], stations[1], stations[0]},0,true,rails[0]),
             };
 
             do
@@ -70,9 +72,9 @@ namespace TreinSchemaCreator
                 for (int p = 0; p < stations.Count; p++)
                 {
 
-                    if (i ==stations[p].pos)
+                    if (i == stations[p].GetRailPos())
                     {
-                        rails[i] = stations[p].name;
+                        rails[i] = stations[p].GetName();
 
                         Station = true;
                     }
@@ -92,7 +94,7 @@ namespace TreinSchemaCreator
                 {
                     bool trainhere = false;
                     Train train = trains[t];
-                    if (i == train.pos)
+                    if (i == train.GetRailPos())
                     {
                         tTrains[t, i] = train.name + " ";
                         trainhere = true;
@@ -128,32 +130,5 @@ namespace TreinSchemaCreator
 
         }
 
-        /* christopherlaan,
-          knapford,
-          frowtastic,
-          vHoofstraat,
-          kinderpaleis,
-          jethoeplein
-          */
-
-
-
-        
-
-        //struct WayPoint
-        //{
-        //    public Station station { get; }
-        //    public bool turn { get; }
-
-        //    public WayPoint(Station station) : this()
-        //    {
-        //        this.station = station;
-        //    }
-
-        //    public WayPoint(Station station, bool turn) : this(station)
-        //    {
-        //        this.turn = turn;
-        //    }
-        //}
     }
 }

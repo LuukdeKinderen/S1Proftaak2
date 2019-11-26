@@ -1,0 +1,9 @@
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\bin\Debug\TrainScheme1.exe.config
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\bin\Debug\TrainScheme1.exe
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\bin\Debug\TrainScheme1.pdb
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.csprojAssemblyReference.cache
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.Properties.Resources.resources
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.csproj.GenerateResource.cache
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.exe
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.pdb
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TrainScheme1\TrainScheme1\obj\Debug\TrainScheme1.Form1.resources

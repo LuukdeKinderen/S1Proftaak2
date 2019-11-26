@@ -17,3 +17,12 @@ C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\ob
 C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.CoreCompileInputs.cache
 C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
 C:\Users\thoma\Desktop\Proftaak_2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe.config
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.pdb
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csprojAssemblyReference.cache
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Form1.resources
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Properties.Resources.resources
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
+C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
