@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TrainScheme1
 {
@@ -22,9 +23,10 @@ namespace TrainScheme1
 
         public void AddTrain(Train train)
         {
-            train.SetRail(rail);
             trains.Add(train);
-            trainWaitTime.Add(10);
+            int i = 10;
+            trainWaitTime.Add(i);
+            Debug.Write(trainWaitTime.Count + " ");
         }
         public void DepartTrain(Train train)
         {
@@ -43,12 +45,10 @@ namespace TrainScheme1
             return rail;
         }
 
-        public void decreaseWaitTime()
+        public bool ReadytoDepart(Train train)
         {
-            for (int i = 0; i < trainWaitTime.Count; i++)
-            {
-                trainWaitTime[i]--;
-            }
+            trainWaitTime[trains.IndexOf(train)]--;
+            return trainWaitTime[trains.IndexOf(train)] < 0;
         }
 
     }
