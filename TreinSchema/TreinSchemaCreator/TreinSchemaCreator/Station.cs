@@ -8,17 +8,18 @@ namespace TreinSchemaCreator
 {
     class Station
     {
-        public string name { get; }
-        public int pos { get; }
-        public bool centralStation { get; }
+        private string name { get; }
+        private Rail rail;
+        private bool centralStation;
 
         public List<Train> trains = new List<Train>();
 
-        public Station(string name, int pos, bool centralStation)
+        public Station(string name, Rail rail, bool centralStation)
         {
             this.name = name;
-            this.pos = pos;
+            this.rail = rail;
             this.centralStation = centralStation;
+            rail.SetStation(this);
         }
 
         public void CheckForDeparcures()
@@ -29,11 +30,7 @@ namespace TreinSchemaCreator
             {
                 train.SetDirection();
             }
-            bool right = true;
-            for (int p = pos; p < 6; p++)
-            {
-                
-            }
+
             foreach(Train train in trains)
             {
                 if (departureLeft == null && !train.direction)
@@ -63,6 +60,25 @@ namespace TreinSchemaCreator
                 departureRight.Depart(this);
             }
 
+        }
+
+        public Rail GetRail()
+        {
+            return rail;
+        }
+
+        public int GetRailPos()
+        {
+            return rail.GetPos();
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
+        public bool CentralStation()
+        {
+            return centralStation;
         }
     }
 }

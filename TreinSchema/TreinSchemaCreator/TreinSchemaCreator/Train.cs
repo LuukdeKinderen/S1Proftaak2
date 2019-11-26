@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TreinSchemaCreator
 {
@@ -13,14 +14,14 @@ namespace TreinSchemaCreator
         public bool interCity { get; }
         public Station[] route { get; }
         public int nextDestination { get; set; }
-        public int pos { get; set; }
+        public Rail rail { get; set; }
         /// <summary>
         /// true = right
         /// </summary>
         public bool direction { get; set; }
         private bool inStation;
 
-        public Train(string name, bool interCity, Station[] route, int nextDestination, bool direction, Station startStation)
+        public Train(string name, bool interCity, Station[] route, int nextDestination, bool direction, Rail startRail)
         {
             this.name = name;
             this.interCity = interCity;
@@ -30,9 +31,9 @@ namespace TreinSchemaCreator
 
 
 
-            pos = startStation.pos;
 
-            startStation.trains.Add(this);
+
+            startRail.SetTrain(this);
             inStation = true;
 
         }
@@ -44,11 +45,11 @@ namespace TreinSchemaCreator
                 timeToWait--;
                 return;
             }
-            if (pos == route[nextDestination].pos)
+            if (rail == route[nextDestination].GetRail())
             {
                 route[nextDestination].trains.Add(this);
                 nextDestination++;
-                if(nextDestination == route.Length)
+                if (nextDestination == route.Length)
                 {
                     nextDestination = 0;
                 }
@@ -59,18 +60,48 @@ namespace TreinSchemaCreator
 
             SetDirection();
             int factor = direction ? 1 : -1;
-            pos += factor;
+
+            for (int r = 0; r < 4; r++)
+            {
+                Rail railPiece = Program.rails[rail.GetPos() + (r * factor)];
+                if (railPiece.GetTrains().Count > 0)
+                {
+                    for (int t = 0; t < railPiece.GetTrains().Count; t++)
+                    {
+                        Train train = railPiece.GetTrains()[t];
+                        if (train.direction == direction && !train.inStation)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+
+            Program.rails[rail.GetPos() + factor].SetTrain(this);
+
 
         }
         public void Depart(Station station)
         {
-            inStation = false;
-            station.trains.Remove(this);
+
+            if (timeToWait <= 0)
+            {
+
+                inStation = false;
+                station.trains.Remove(this);
+            }
         }
 
         public void SetDirection()
         {
-            direction = pos < route[nextDestination].pos;
+            direction = rail.GetPos() < route[nextDestination].GetRailPos();
         }
+
+        public int GetRailPos()
+        {
+            return rail.GetPos();
+        }
+
+        
     }
 }
