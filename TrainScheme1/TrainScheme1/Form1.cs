@@ -37,11 +37,11 @@ namespace TrainScheme1
             stations.Add(new Station("KF", true));
             rails[20].AddStation(stations[1]);
 
-            trains.Add(new Train("I1", true, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("I2", true, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
+            trains.Add(new Train("I1", true, true, new Station[] { stations[1], stations[0], stations[1] }, rails[20]));
+            trains.Add(new Train("I2", true, true, new Station[] { stations[1], stations[0], stations[1] }, rails[20]));
             trains.Add(new Train("S1", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
             trains.Add(new Train("S2", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            //rails[0].GetStation().AddTrain(trains[0]);
+
 
         }
 
@@ -54,15 +54,36 @@ namespace TrainScheme1
             for (int t = 0; t < trains.Count; t++)
             {
                 Train train = trains[t];
-                bool right = train.GetRail().GetIndex() < train.DestinationRail().GetIndex();
+                bool right = train.GoingRight();
                 int trainPos = train.GetRail().GetIndex();
                 bool clear = true;
-                //CHECK FOR LEFT!!!
-                for (int i = trainPos + 1; i < trainPos + 6; i++)
+
+                if (right)
                 {
-                    if (rails[i].GetTrain() != null && !rails[i].GetTrain().InStation())
+                    for (int i = trainPos + 1; i < trainPos + 6; i++)
                     {
-                        clear = false;
+                        if (i < rails.Length)
+                        {
+
+                            if (!rails[i].IsClear(train))
+                            {
+                                clear = false;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    for (int i = trainPos - 1; i > trainPos - 6; i--)
+                    {
+                        if (i >= 0)
+                        {
+                            if (!rails[i].IsClear(train))
+                            {
+                                clear = false;
+                            }
+                        }
                     }
                 }
                 if (clear)
@@ -109,7 +130,8 @@ namespace TrainScheme1
                     }
                     Debug.WriteLine("");
                 }
-                if (rails[r].GetTrain() != null)
+
+                for (int t = 0; t < rails[r].GetTrains().Count; t++)
                 {
                     for (int i = 0; i < rails.Length; i++)
                     {
@@ -119,13 +141,13 @@ namespace TrainScheme1
                         }
                         else
                         {
-                            Debug.Write(rails[r].GetTrain().name + " ");
+                            Debug.Write(rails[r].GetTrains()[t].name + " ");
                         }
                     }
                     Debug.WriteLine("");
+
                 }
             }
-
 
         }
 

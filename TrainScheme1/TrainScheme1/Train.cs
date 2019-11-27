@@ -29,9 +29,9 @@ namespace TrainScheme1
 
         public void SetRail(Rail rail)
         {
-            this.rail.SetTrain(null);
+            this.rail.RemoveTrain(this);
             this.rail = rail;
-            this.rail.SetTrain(this);
+            this.rail.AddTrain(this);
             //if (rail.GetStation() == route[nextDestination])
             //{
             //    inStation = true;
@@ -51,10 +51,15 @@ namespace TrainScheme1
                 nextDestination = 0;
             }
         }
+        
 
         public Rail DestinationRail()
         {
             return route[nextDestination].GetRail();
+        }
+        public bool GoingRight()
+        {
+            return rail.GetIndex() < DestinationRail().GetIndex();
         }
         public Rail GetRail()
         {

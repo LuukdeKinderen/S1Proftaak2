@@ -10,7 +10,7 @@ namespace TrainScheme1
     {
         private int index;
         private Station station;
-        private Train train;
+        private List<Train> trains = new List<Train>();
 
 
         public Rail(int index)
@@ -31,14 +31,46 @@ namespace TrainScheme1
         {
             return index;
         }
-        public Train GetTrain()
+        public bool IsClear(Train train)
         {
-            return train;
-        }
-        public void SetTrain(Train train)
-        {
-            this.train = train;
+            bool clear = true;
+            if(trains.Count > 0)
+            {
+                for (int t = 0; t < trains.Count; t++)
+                {
+                    //Als treinen in dezelfde richting rijden
+                    if(trains[t].GoingRight() == train.GoingRight())
+                    {
+                        clear = false;
+                    }
+                }
+                
 
+                if(station != null)
+                {
+                    if (station.CentralStation())
+                    {
+                        clear = true;
+                    }
+                }
+            }
+
+            return clear;
+        }
+
+        public void AddTrain(Train train)
+        {
+            this.trains.Add(train);
+
+        }
+        public void RemoveTrain(Train train)
+        {
+            this.trains.Remove(train);
+        }
+
+        public List<Train> GetTrains()
+        {
+            return trains;
         }
     }
 }

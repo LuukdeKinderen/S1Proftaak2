@@ -24,9 +24,8 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             trains.Add(train);
-            int i = 10;
+            int i = 0;
             trainWaitTime.Add(i);
-            Debug.Write(trainWaitTime.Count + " ");
         }
         public void DepartTrain(Train train)
         {
@@ -49,6 +48,11 @@ namespace TrainScheme1
         {
             trainWaitTime[trains.IndexOf(train)]--;
             return trainWaitTime[trains.IndexOf(train)] < 0;
+        }
+
+        public bool CentralStation()
+        {
+            return centralStation;
         }
 
     }
