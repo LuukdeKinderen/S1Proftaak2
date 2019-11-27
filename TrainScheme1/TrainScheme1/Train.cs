@@ -8,7 +8,7 @@ namespace TrainScheme1
 {
     class Train
     {
-        private string name;
+        public string name;
         private bool intercity;
         private bool right;
         private Rail rail;
@@ -18,27 +18,37 @@ namespace TrainScheme1
         private bool inStation;
 
 
-        public Train(string name, bool intercity, bool right, Station[] route)
+        public Train(string name, bool intercity, bool right, Station[] route,Rail rail)
         {
             this.name = name;
             this.intercity = intercity;
             this.right = right;
             this.route = route;
-            
+            this.rail = rail;
         }
 
         public void SetRail(Rail rail)
         {
+            this.rail.SetTrain(null);
             this.rail = rail;
-            if (rail.GetStation() == route[nextDestination])
+            this.rail.SetTrain(this);
+            //if (rail.GetStation() == route[nextDestination])
+            //{
+            //    inStation = true;
+            //    rail.GetStation().AddTrain(this);
+            //    nextDestination++;
+            //    if(nextDestination == route.Length-1)
+            //    {
+            //        nextDestination = 0;
+            //    }
+            //}
+        }
+        public void SetNextDestination()
+        {
+            nextDestination++;
+            if (nextDestination == route.Length - 1)
             {
-                inStation = true;
-                
-                nextDestination++;
-                if(nextDestination == route.Length)
-                {
-                    nextDestination = 0;
-                }
+                nextDestination = 0;
             }
         }
 
@@ -59,7 +69,10 @@ namespace TrainScheme1
         {
             inStation = false;
         }
-
+        public void Arrive()
+        {
+            inStation = true;
+        }
 
     }
 }

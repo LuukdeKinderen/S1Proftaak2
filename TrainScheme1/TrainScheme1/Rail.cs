@@ -10,6 +10,7 @@ namespace TrainScheme1
     {
         private int index;
         private Station station;
+        private Train train;
 
 
         public Rail(int index)
@@ -29,6 +30,15 @@ namespace TrainScheme1
         public int GetIndex()
         {
             return index;
+        }
+        public Train GetTrain()
+        {
+            return train;
+        }
+        public void SetTrain(Train train)
+        {
+            this.train = train;
+
         }
     }
 }
