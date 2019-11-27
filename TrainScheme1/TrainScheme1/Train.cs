@@ -32,16 +32,6 @@ namespace TrainScheme1
             this.rail.RemoveTrain(this);
             this.rail = rail;
             this.rail.AddTrain(this);
-            //if (rail.GetStation() == route[nextDestination])
-            //{
-            //    inStation = true;
-            //    rail.GetStation().AddTrain(this);
-            //    nextDestination++;
-            //    if(nextDestination == route.Length-1)
-            //    {
-            //        nextDestination = 0;
-            //    }
-            //}
         }
         public void SetNextDestination()
         {
@@ -78,6 +68,5 @@ namespace TrainScheme1
         {
             inStation = true;
         }
-
     }
 }

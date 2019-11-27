@@ -24,7 +24,7 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             trains.Add(train);
-            int i = 0;
+            int i = centralStation?20:10;
             trainWaitTime.Add(i);
         }
         public void DepartTrain(Train train)

@@ -28,19 +28,46 @@ namespace TrainScheme1
                 rails[r] = new Rail(r);
             }
 
-            timer.Interval = 1;
+            timer.Interval = 200;
             timer.Tick += MoveTrains;
 
             stations.Add(new Station("CL", true));
             rails[0].AddStation(stations[0]);
 
-            stations.Add(new Station("KF", true));
+            stations.Add(new Station("KF", false));
             rails[20].AddStation(stations[1]);
 
-            trains.Add(new Train("I1", true, true, new Station[] { stations[1], stations[0], stations[1] }, rails[20]));
-            trains.Add(new Train("I2", true, true, new Station[] { stations[1], stations[0], stations[1] }, rails[20]));
-            trains.Add(new Train("S1", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("S2", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
+            stations.Add(new Station("FT", true));
+            rails[50].AddStation(stations[2]);
+
+            stations.Add(new Station("BH", false));
+            rails[70].AddStation(stations[3]);
+
+            stations.Add(new Station("BR", false));
+            rails[90].AddStation(stations[4]);
+
+            stations.Add(new Station("JP", true));
+            rails[116].AddStation(stations[5]);
+
+
+            trains.Add(new Train("I1", true, true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }, rails[0]));
+            trains.Add(new Train("I2", true, true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }, rails[116]));
+            trains.Add(new Train("S1", false, true, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }, rails[0]));
+            trains.Add(new Train("S2", false, true, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }, rails[40]));
+
+            for (int i = 0; i < 120; i++)
+            {
+
+                PictureBox p = new PictureBox
+                {
+                    BackColor = System.Drawing.SystemColors.Control,
+                    Location = new System.Drawing.Point(708, 3),
+                    Name = "pictureBox1",
+                    Size = new System.Drawing.Size(9, 25)
+                };
+                tableLayoutPanel1.Controls.Add(p, i, 0);
+
+            }
 
 
         }
@@ -108,6 +135,43 @@ namespace TrainScheme1
                 }
             }
 
+            DrawTrains();
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = !timer.Enabled;
+        }
+
+        private void DrawTrains()
+        {
+            for (int i = 0; i < 120; i++)
+            {
+                if (rails[i].GetTrains().Count > 0)
+                {
+                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
+                    p.BackColor = System.Drawing.SystemColors.ActiveBorder;
+                }
+                else
+                {
+                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
+                    p.BackColor = System.Drawing.SystemColors.Control;
+                }
+                if (rails[i].GetStation() != null)
+                {
+                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
+                    p.BackColor = System.Drawing.SystemColors.Window;
+                }
+            }
+
+
+
+        }
+
+        private void DrawTrainsDebug()
+        {
             for (int r = 0; r < rails.Length; r++)
             {
                 Debug.Write("|| ");
@@ -148,12 +212,6 @@ namespace TrainScheme1
 
                 }
             }
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            timer.Enabled = !timer.Enabled;
         }
 
 
