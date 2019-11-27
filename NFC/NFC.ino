@@ -1,6 +1,24 @@
  
 #include <SPI.h>
 #include <MFRC522.h>
+#include <Keypad.h>
+
+const byte ROWS = 4; 
+const byte COLS = 3; 
+
+char hexaKeys[ROWS][COLS] = {
+  {'1', '2', '3'},
+  {'4', '5', '6'},
+  {'7', '8', '9'},
+  {'*', '0', '#'}
+};
+
+byte rowPins[ROWS] = {9, 8, 7, 6}; 
+byte colPins[COLS] = {5, 4, 3}; 
+String keyString = "";
+
+Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+
 
 #define SS_PIN 10
 #define RST_PIN 2
@@ -26,69 +44,102 @@ void setup() {
  
 void loop() {
 
-  // Look for new cards
-  if ( ! rfid.PICC_IsNewCardPresent())
-    return;
+  char  customKey = customKeypad.getKey();
 
-  // Verify if the NUID has been readed
-  if ( ! rfid.PICC_ReadCardSerial())
-    return;
+  if (customKey != NULL) {
+    switch(customKey) {
+      case 42:
+        keyString = ""; 
+        Serial.println(F("Leeg"));
+        break;
 
+      case 35:
+        keyString.remove(keyString.length() - 1);
+        break;
 
-
- for (byte i = 0; i < 4; i++) {
-      nuidPICC[i] = rfid.uid.uidByte[i];
+      default:
+        keyString += customKey;
+        break;
     }
-   
-  //printHex(rfid.uid.uidByte, rfid.uid.size);
-    Serial.println();
-  rfid.PICC_HaltA();
-
-  String payloadString = "FxFF 1 ";
-  for (int i; i < 4; i++) {
-    payloadString += nuidPICC[i];
+    customKey = "";  
+ 
   }
-  payloadString += " FxF0";
-  Serial.println(payloadString);
   
-//  Serial.println("FxFF");
-//  Serial.println("1");
-//  printHex(rfid.uid.uidByte, rfid.uid.size);
+  // Look for new cards
+  if (rfid.PICC_IsNewCardPresent()) {
+   
+  // Verify if the NUID has been readed
+  if ( rfid.PICC_ReadCardSerial()) {
 
- //Recieving data from c#
- if (Serial.available()) {
-    if (Serial.read() == "FxFF") {
-      char readArray[500];
-      float startTime = millis();
-      int count = 0;
+
+      for (byte i = 0; i < 4; i++) {
+        nuidPICC[i] = rfid.uid.uidByte[i];
+      }
        
-      while (!Serial.available()) {
-          if ((startTime - millis()) > 5000) {
-            return;
-          }
-        }
+    
+       Serial.println();
+      rfid.PICC_HaltA();
+
+      if (keyString == "") {
       
-      char adress = Serial.read(); 
+      String payloadString = "FxFF 1 ";
+      for (int i; i < 4; i++) {
+        payloadString += nuidPICC[i];
+      }
+      payloadString += " FxF0";
+      Serial.println(payloadString);
+       
+    } else {
+      
+      String payloadString = "FxFF 2 ";
+      payloadString += keyString.length();
+      payloadString += "_";
+      payloadString += keyString;
+      payloadString += " ";
+      
+      for (int i; i < 4; i++) {
+        payloadString += nuidPICC[i];
+      }
+      
+      payloadString += " FxF0";
+      Serial.println(payloadString);
 
-      while (true) {
-        while (!Serial.available()) {
-          if ((startTime - millis()) > 5000) {
-            return;
+       keyString = "";  
+    }
+    
+    if (Serial.available()) {
+       if (Serial.read() == "FxFF") {
+         char readArray[500];
+         float startTime = millis();
+         int count = 0;
+           
+         while (!Serial.available()) {
+             if ((startTime - millis()) > 5000) {
+               return;
+             }
+           }
+          
+         char adress = Serial.read(); 
+    
+         while (true) {
+           while (!Serial.available()) {
+             if ((startTime - millis()) > 5000) {
+               return;
+             }
+           }
+    
+           readArray[count] = Serial.read();
+           count++;
+    
+           if (readArray[count] == 'FXF0') {
+              RunCodeIfRead();
+              return;
+           }
           }
-        }
-
-        readArray[count] = Serial.read();
-        count++;
-
-        if (readArray[count] == 'FXF0') {
-          RunCodeIfRead();
-          return;
         }
       }
     }
   }
-
-  
 }
 
 

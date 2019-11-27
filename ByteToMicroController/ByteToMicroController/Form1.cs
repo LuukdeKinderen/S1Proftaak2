@@ -30,6 +30,16 @@ namespace ByteToMicroController
             Console.WriteLine(receivePayload);
 
             serialPort1.Close();
+
+            string inputString = receivePayload;
+            char[] inputChar = inputString.ToCharArray();
+            char adress = inputChar[5];
+
+            string substring = inputString.Substring((inputString.IndexOf("FxFF") + 7), (inputString.IndexOf("FxF0") - 7));
+            OutputBox2.Text = substring;
+            OutputBox3.Text = adress.ToString();
+
+
             loop();
         }
 
