@@ -21,11 +21,37 @@ namespace TrainScheme1
         {
             InitializeComponent();
 
-            
-            
+            /*
+            Random r = new Random();
+            string lol = "FxFF 9 ";
 
-            timer.Interval = 200;
-            timer.Tick += MoveTrains;
+            for (int i = 0; i < 120; i++)
+            {
+                int rr = r.Next(0, 5);
+                switch (rr)
+                {
+                    case 0:
+                        lol += "fffff";
+                        break;
+                    case 1:
+                        lol += "f036a6";
+                        break;
+                    case 2:
+                        lol += "123456";
+                        break;
+                    case 3:
+                        lol += "abcdef";
+                        break;
+                    case 4:
+                        lol += "000000";
+                        break;
+                }
+            }
+
+            lol += " FxF0";
+
+            Debug.WriteLine(lol);
+            */
 
             
 
@@ -40,28 +66,87 @@ namespace TrainScheme1
                     Size = new System.Drawing.Size(9, 25)
                 };
                 tableLayoutPanel1.Controls.Add(p, i, 0);
-
             }
 
+            timer.Interval = 200;
+            timer.Tick += CycleTick;
+            timer.Start();
+            
 
         }
 
 
 
 
-        void MoveTrains(object source, EventArgs e)
+        void CycleTick(object source, EventArgs e)
         {
 
             trainBehaviour.MoveTrains();
 
             DrawRails(trainBehaviour.GetRails());
-
+            Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Enabled = !timer.Enabled;
+        }
+
+        private string GenerateHexString(Rail[] rails)
+        {
+            string hexArr = "FxFF 9 ";
+            string[] arr = new string[240];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = "000000";
+            }
+
+
+            for (int r = 0; r < rails.Length; r++)
+            {
+                if (rails[r].GetStation() != null)
+                {
+                    List<Train> trains = rails[r].GetStation().GetTrains();
+                    
+                    if (trains.Count > 0)
+                    {
+                        int ledRightIndex = r + 3;
+                        int ledLeftIndex = r;
+                        for (int t = 0; t < trains.Count; t++)
+                        {
+                            if (trains[t].GoingRight())
+                            {
+                                if (ledRightIndex >= r)
+                                {
+                                    arr[ledRightIndex] = trains[t].GetHEX();
+                                    ledRightIndex--;
+                                }
+                            }
+                            else
+                            {
+                                if (ledLeftIndex <= r + 3)
+                                {
+                                    arr[ledLeftIndex] = trains[t].GetHEX();
+                                    ledLeftIndex++;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                hexArr += arr[i];
+            }
+
+            hexArr += " FxF0";
+            return hexArr;
         }
 
         private void DrawRails(Rail[] rails)
@@ -88,6 +173,7 @@ namespace TrainScheme1
 
 
         }
+
 
         private void DrawTrainsDebug(Rail[] rails)
         {

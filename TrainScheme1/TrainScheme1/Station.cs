@@ -89,5 +89,14 @@ namespace TrainScheme1
             return centralStation;
         }
 
+        /// <summary>
+        /// returns list of all trians on this staion
+        /// </summary>
+        /// <returns></returns>
+        public List<Train> GetTrains()
+        {
+            return trains;
+        }
+
     }
 }

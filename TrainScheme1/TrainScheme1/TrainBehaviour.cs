@@ -12,7 +12,7 @@ namespace TrainScheme1
         private int clearSpace = 6;
 
         Rail[] rails = new Rail[120];
-        
+
 
         List<Station> stations = new List<Station>();
         List<Train> trains = new List<Train>();
@@ -44,10 +44,10 @@ namespace TrainScheme1
             rails[116].AddStation(stations[5]);
 
 
-            trains.Add(new Train("I1", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }, rails[0]));
-            trains.Add(new Train("I2", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }, rails[116]));
-            trains.Add(new Train("S1", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("S2", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }, rails[50]));
+            trains.Add(new Train("I1", "fcba03", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }, rails[0]));
+            trains.Add(new Train("I2", "fc0303", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }, rails[116]));
+            trains.Add(new Train("S1", "03fce7", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }, rails[0]));
+            trains.Add(new Train("S2", "fc03f4", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }, rails[50]));
         }
 
         public void MoveTrains()

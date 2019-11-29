@@ -14,6 +14,7 @@ namespace TrainScheme1
         public string name;
         private bool intercity;
         private Rail rail;
+        private string HEX;
 
         private Station[] route;
         private int nextDestination = 0;
@@ -26,9 +27,10 @@ namespace TrainScheme1
         /// <param name="intercity">When true => new Train is intercity</param>
         /// <param name="route">Array of stations to cover on full train cycle, please include return</param>
         /// <param name="rail">Rail to start on</param>
-        public Train(string name, bool intercity, Station[] route,Rail rail)
+        public Train(string name,string HEX, bool intercity, Station[] route,Rail rail)
         {
             this.name = name;
+            this.HEX = HEX;
             this.intercity = intercity;
             this.route = route;
             this.rail = rail;
@@ -107,6 +109,15 @@ namespace TrainScheme1
         public void Arrive()
         {
             inStation = true;
+        }
+
+        /// <summary>
+        /// retruns HEX value of this trian
+        /// </summary>
+        /// <returns></returns>
+        public string GetHEX()
+        {
+            return HEX;
         }
     }
 }
