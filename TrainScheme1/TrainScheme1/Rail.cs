@@ -10,6 +10,7 @@ namespace TrainScheme1
     {
 
         private int index;
+        private int right;
         private Station station;
         private List<Train> trains = new List<Train>();
 
@@ -17,9 +18,10 @@ namespace TrainScheme1
         /// Constructs a rail object
         /// </summary>
         /// <param name="index">The index of the Rail object {0-120}</param>
-        public Rail(int index)
+        public Rail(int right, int index)
         {
             this.index = index;
+            this.right = right;
         }
         /// <summary>
         /// Adds a station object to this Rail and sets rail on station
@@ -27,7 +29,7 @@ namespace TrainScheme1
         /// <param name="station">The station to add</param>
         public void AddStation(Station station)
         {
-            station.SetRail(this);
+            station.SetRail(right,this);
             this.station = station;
         }
 
@@ -49,24 +51,29 @@ namespace TrainScheme1
             return index;
         }
 
+        public int GetRight()
+        {
+            return right;
+        }
+
         /// <summary>
         /// Checks if this Rail is safe to enter for specific train.
         /// </summary>
         /// <param name="train">The train that it needs to check for</param>
         /// <returns>true if Rail is safe</returns>
-        public bool IsClear(Train train)
+        public bool IsClear()
         {
             bool clear = true;
             if(trains.Count > 0)
             {
-                for (int t = 0; t < trains.Count; t++)
-                {
-                    //Als treinen in dezelfde richting rijden
-                    if(trains[t].GoingRight() == train.GoingRight())
-                    {
+                //for (int t = 0; t < trains.Count; t++)
+                //{
+                //    //Als treinen in dezelfde richting rijden
+                //    if(trains[t].GoingRight() == train.GoingRight())
+                //    {
                         clear = false;
-                    }
-                }
+                //    }
+                //}
                 
 
                 if(station != null)

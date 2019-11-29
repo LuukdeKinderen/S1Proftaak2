@@ -63,7 +63,7 @@ namespace TrainScheme1
         /// Gets rail of next station in cycle
         /// </summary>
         /// <returns>Rail object of station</returns>
-        public Rail DestinationRail()
+        public Rail[] DestinationRail()
         {
             return route[nextDestination].GetRail();
         }
@@ -74,7 +74,7 @@ namespace TrainScheme1
         /// <returns>true if station is to the right</returns>
         public bool GoingRight()
         {
-            return rail.GetIndex() < DestinationRail().GetIndex();
+            return rail.GetIndex() < DestinationRail()[rail.GetRight()].GetIndex();
         }
 
         /// <summary>
@@ -93,6 +93,11 @@ namespace TrainScheme1
         public bool InStation()
         {
             return inStation;
+        }
+
+        public bool Intercity()
+        {
+            return intercity;
         }
 
         /// <summary>

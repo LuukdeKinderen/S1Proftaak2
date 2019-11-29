@@ -60,18 +60,26 @@ namespace TrainScheme1
 
                 PictureBox p = new PictureBox
                 {
-                    BackColor = System.Drawing.SystemColors.Control,
+                    BackColor = System.Drawing.SystemColors.ActiveBorder,
+                    Location = new System.Drawing.Point(708, 3),
+                    Name = "pictureBox1",
+                    Size = new System.Drawing.Size(9, 25)
+                };
+                PictureBox p1 = new PictureBox
+                {
+                    BackColor = System.Drawing.SystemColors.ActiveBorder,
                     Location = new System.Drawing.Point(708, 3),
                     Name = "pictureBox1",
                     Size = new System.Drawing.Size(9, 25)
                 };
                 tableLayoutPanel1.Controls.Add(p, i, 0);
+                tableLayoutPanel1.Controls.Add(p1, i, 1);
             }
 
-            timer.Interval = 200;
+            timer.Interval = 50;
             timer.Tick += CycleTick;
             timer.Start();
-            
+
 
         }
 
@@ -84,12 +92,13 @@ namespace TrainScheme1
             trainBehaviour.MoveTrains();
 
             DrawRails(trainBehaviour.GetRails());
-            Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
+            //Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             timer.Enabled = !timer.Enabled;
         }
 
@@ -149,26 +158,38 @@ namespace TrainScheme1
             return hexArr;
         }
 
-        private void DrawRails(Rail[] rails)
+        private void DrawRails(Rail[,] rails)
         {
-            for (int i = 0; i < 120; i++)
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
             {
-                if (rails[i].GetTrains().Count > 0)
+                for (int r = 0; r < rails.GetLength(1); r++)
                 {
-                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
-                    p.BackColor = System.Drawing.SystemColors.ActiveBorder;
-                }
-                else
-                {
-                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
-                    p.BackColor = System.Drawing.SystemColors.Control;
-                }
-                if (rails[i].GetStation() != null)
-                {
-                    PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(i, 0);
-                    p.BackColor = System.Drawing.SystemColors.Window;
+                    if (rails[ri,r].GetTrains().Count > 0)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#"+rails[ri, r].GetTrains()[0].GetHEX()); 
+                    }
+                    else
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        p.BackColor = System.Drawing.SystemColors.Control;
+                    }
+                    if (rails[ri,r].GetStation() != null)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        if(rails[ri, r].GetStation().CentralStation())
+                        {
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#000000");
+                        }
+                        else
+                        {
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+                        }
+                        
+                    }
                 }
             }
+            
 
 
 

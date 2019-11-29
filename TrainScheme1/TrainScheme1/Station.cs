@@ -16,7 +16,7 @@ namespace TrainScheme1
         private bool centralStation;
         private List<Train> trains = new List<Train>();
         private List<int> trainWaitTime = new List<int>();
-        private Rail rail;
+        private Rail[] rail = new Rail[2];
 
         /// <summary>
         /// constructs a new Station object
@@ -36,7 +36,8 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             trains.Add(train);
-            int i = centralStation?20:10;
+            train.SetRail(rail[train.GoingRight() ? 0 : 1]);
+            int i = centralStation ? train.Intercity() ? 15 : 20 : 10;
             trainWaitTime.Add(i);
         }
 
@@ -55,16 +56,16 @@ namespace TrainScheme1
         /// Sets main rail for this station.
         /// </summary>
         /// <param name="rail">Rail object</param>
-        public void SetRail(Rail rail)
+        public void SetRail(int right, Rail rail)
         {
-            this.rail = rail;
+            this.rail[right] = rail;
         }
 
         /// <summary>
         /// Gets main rail of this station
         /// </summary>
         /// <returns>Rail object</returns>
-        public Rail GetRail()
+        public Rail[] GetRail()
         {
             return rail;
         }
