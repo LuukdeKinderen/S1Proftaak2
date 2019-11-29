@@ -26,3 +26,12 @@ C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroCon
 C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
 C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
 C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe.config
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.exe
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\bin\Debug\ByteToMicroController.pdb
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csprojAssemblyReference.cache
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Form1.resources
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.Properties.Resources.resources
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.csproj.GenerateResource.cache
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.exe
+D:\GitHubProftaak2\Proftaak2\ByteToMicroController\ByteToMicroController\obj\Debug\ByteToMicroController.pdb
