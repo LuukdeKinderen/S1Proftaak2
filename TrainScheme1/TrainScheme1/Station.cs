@@ -36,9 +36,32 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             trains.Add(train);
-            train.SetRail(rail[train.GoingRight() ? 0 : 1]);
-            int i = centralStation ? train.Intercity() ? 15 : 20 : 10;
-            trainWaitTime.Add(i);
+
+            
+            int waitTime = centralStation ? train.Intercity() ? 7 : 25 : 10;
+            trainWaitTime.Add(waitTime);
+
+            List<Train> trainsRight = new List<Train>();
+            List<Train> trainsLeft = new List<Train>();
+            for (int t = 0; t < trains.Count; t++)
+            {
+                if (trains[t].GoingRight())
+                {
+                    trainsRight.Add(trains[t]);
+                }
+                else
+                {
+                    trainsLeft.Add(trains[t]);
+                }
+            }
+            for (int i = 0; i < trainsRight.Count; i++)
+            {
+                trainsRight[i].SetRail(rail[1]);
+            }
+            for (int i = 0; i < trainsLeft.Count; i++)
+            {
+                trainsLeft[i].SetRail(rail[0]);
+            }
         }
 
         /// <summary>
@@ -98,6 +121,5 @@ namespace TrainScheme1
         {
             return trains;
         }
-
     }
 }

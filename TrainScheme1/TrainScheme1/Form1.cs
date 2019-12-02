@@ -53,7 +53,7 @@ namespace TrainScheme1
             Debug.WriteLine(lol);
             */
 
-            
+
 
             for (int i = 0; i < 120; i++)
             {
@@ -76,7 +76,7 @@ namespace TrainScheme1
                 tableLayoutPanel1.Controls.Add(p1, i, 1);
             }
 
-            timer.Interval = 50;
+            timer.Interval = 100;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -100,6 +100,7 @@ namespace TrainScheme1
         {
 
             timer.Enabled = !timer.Enabled;
+            
         }
 
         private string GenerateHexString(Rail[] rails)
@@ -117,7 +118,7 @@ namespace TrainScheme1
                 if (rails[r].GetStation() != null)
                 {
                     List<Train> trains = rails[r].GetStation().GetTrains();
-                    
+
                     if (trains.Count > 0)
                     {
                         int ledRightIndex = r + 3;
@@ -164,20 +165,16 @@ namespace TrainScheme1
             {
                 for (int r = 0; r < rails.GetLength(1); r++)
                 {
-                    if (rails[ri,r].GetTrains().Count > 0)
+
+                    if (rails[ri, r].GetTrains().Count > 0)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
-                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#"+rails[ri, r].GetTrains()[0].GetHEX()); 
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + rails[ri, r].GetTrains()[0].GetHEX());
                     }
-                    else
+                    else if (rails[ri, r].GetStation() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
-                        p.BackColor = System.Drawing.SystemColors.Control;
-                    }
-                    if (rails[ri,r].GetStation() != null)
-                    {
-                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
-                        if(rails[ri, r].GetStation().CentralStation())
+                        if (rails[ri, r].GetStation().CentralStation())
                         {
                             p.BackColor = System.Drawing.ColorTranslator.FromHtml("#000000");
                         }
@@ -185,11 +182,17 @@ namespace TrainScheme1
                         {
                             p.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
                         }
-                        
+
                     }
+                    else
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        p.BackColor = System.Drawing.SystemColors.Control;
+                    }
+
                 }
             }
-            
+
 
 
 

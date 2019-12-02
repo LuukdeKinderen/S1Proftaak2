@@ -59,7 +59,6 @@ namespace TrainScheme1
         /// <summary>
         /// Checks if this Rail is safe to enter for specific train.
         /// </summary>
-        /// <param name="train">The train that it needs to check for</param>
         /// <returns>true if Rail is safe</returns>
         public bool IsClear()
         {

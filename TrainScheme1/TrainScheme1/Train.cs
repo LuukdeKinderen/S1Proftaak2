@@ -50,7 +50,7 @@ namespace TrainScheme1
         /// <summary>
         /// Sets next destination and loops back to start when cycle has been completed
         /// </summary>
-        public void SetNextDestination()
+        private void SetNextDestination()
         {
             nextDestination++;
             if (nextDestination == route.Length - 1)
@@ -114,6 +114,8 @@ namespace TrainScheme1
         public void Arrive()
         {
             inStation = true;
+            SetNextDestination();
+            rail.GetStation().AddTrain(this);
         }
 
         /// <summary>

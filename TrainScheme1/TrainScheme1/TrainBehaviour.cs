@@ -101,8 +101,7 @@ namespace TrainScheme1
                     if (train.GetRail() == train.DestinationRail()[0] || train.GetRail() == train.DestinationRail()[1])
                     {
                         train.Arrive();
-                        train.GetRail().GetStation().AddTrain(train);
-                        train.SetNextDestination();
+                        
                     }
                     //Als trein niet in het station staat (aan het rijden is)
                     if (!train.InStation())
@@ -113,6 +112,11 @@ namespace TrainScheme1
                     else if (train.GetRail().GetStation().ReadytoDepart(train))
                     {
                         train.GetRail().GetStation().DepartTrain(train);
+                    }
+                    else
+                    {
+
+                        //train.SetRail(rails[train.GetRail().GetRight(), train.GetRail().GetIndex() - train.GetRail().GetStation().GetTrains().IndexOf(train)+3]);
                     }
                 }
             }
