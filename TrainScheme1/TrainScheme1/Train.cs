@@ -58,23 +58,16 @@ namespace TrainScheme1
                 nextDestination = 0;
             }
         }
-        
-        /// <summary>
-        /// Gets rail of next station in cycle
-        /// </summary>
-        /// <returns>Rail object of station</returns>
-        public Rail[] DestinationRail()
-        {
-            return route[nextDestination].GetRail();
-        }
 
-        /// <summary>
-        /// calculates if next station in cycle is to the right of this train
-        /// </summary>
-        /// <returns>true if station is to the right</returns>
-        public bool GoingRight()
+        public bool Arrived()
         {
-            return rail.GetIndex() < DestinationRail()[rail.GetRight()].GetIndex();
+            return route[nextDestination].Arrived(this);
+        }
+        
+
+        public bool NeedsToGoRight()
+        {
+            return rail.GetIndex() < route[nextDestination].GetPosition();
         }
 
         /// <summary>

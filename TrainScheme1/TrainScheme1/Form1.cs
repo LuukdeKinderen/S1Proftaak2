@@ -125,7 +125,7 @@ namespace TrainScheme1
                         int ledLeftIndex = r;
                         for (int t = 0; t < trains.Count; t++)
                         {
-                            if (trains[t].GoingRight())
+                            if (trains[t].NeedsToGoRight())
                             {
                                 if (ledRightIndex >= r)
                                 {

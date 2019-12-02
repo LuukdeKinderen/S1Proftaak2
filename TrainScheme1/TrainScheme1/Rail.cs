@@ -29,7 +29,6 @@ namespace TrainScheme1
         /// <param name="station">The station to add</param>
         public void AddStation(Station station)
         {
-            station.SetRail(right,this);
             this.station = station;
         }
 

@@ -16,17 +16,25 @@ namespace TrainScheme1
         private bool centralStation;
         private List<Train> trains = new List<Train>();
         private List<int> trainWaitTime = new List<int>();
-        private Rail[] rail = new Rail[2];
+        private Rail[,] rails = new Rail[2,4];
 
         /// <summary>
         /// constructs a new Station object
         /// </summary>
         /// <param name="name">Name of the new Station</param>
         /// <param name="centralStation">If true => new station is a central Station</param>
-        public Station(string name, bool centralStation)
+        public Station(string name, bool centralStation, Rail[,] rails)
         {
             this.name = name;
             this.centralStation = centralStation;
+            this.rails = rails;
+            for (int r = 0; r < this.rails.GetLength(0); r++)
+            {
+                for (int ri = 0; ri < this.rails.GetLength(1); ri++)
+                {
+                    this.rails[r, ri].AddStation(this);
+                }
+            }
         }
 
         /// <summary>
@@ -41,6 +49,12 @@ namespace TrainScheme1
             int waitTime = centralStation ? train.Intercity() ? 7 : 25 : 10;
             trainWaitTime.Add(waitTime);
 
+            for (int t = 0; t < trains.Count; t++)
+            {
+
+            }
+
+            /*
             List<Train> trainsRight = new List<Train>();
             List<Train> trainsLeft = new List<Train>();
             for (int t = 0; t < trains.Count; t++)
@@ -56,12 +70,12 @@ namespace TrainScheme1
             }
             for (int i = 0; i < trainsRight.Count; i++)
             {
-                trainsRight[i].SetRail(rail[1]);
+                trainsRight[i].SetRail(rails[1,i]);
             }
             for (int i = 0; i < trainsLeft.Count; i++)
             {
-                trainsLeft[i].SetRail(rail[0]);
-            }
+                trainsLeft[i].SetRail(rails[0,i]);
+            }*/
         }
 
         /// <summary>
@@ -76,21 +90,28 @@ namespace TrainScheme1
         }
 
         /// <summary>
-        /// Sets main rail for this station.
-        /// </summary>
-        /// <param name="rail">Rail object</param>
-        public void SetRail(int right, Rail rail)
-        {
-            this.rail[right] = rail;
-        }
-
-        /// <summary>
         /// Gets main rail of this station
         /// </summary>
         /// <returns>Rail object</returns>
-        public Rail[] GetRail()
+        public int GetPosition()
         {
-            return rail;
+            return rails[0,0].GetIndex();
+        }
+
+        public bool Arrived(Train train)
+        {
+            bool arrived = false;
+            for (int r = 0; r < rails.GetLength(0); r++)
+            {
+                for (int ri = 0; ri < rails.GetLength(1); ri++)
+                {
+                    if(train.GetRail() == rails[r, ri])
+                    {
+                        arrived = true;
+                    }
+                }
+            }
+            return arrived;
         }
 
         /// <summary>
