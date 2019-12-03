@@ -1,6 +1,0 @@
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\bin\Debug\TreinSchemaCreator.exe.config
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\bin\Debug\TreinSchemaCreator.exe
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\bin\Debug\TreinSchemaCreator.pdb
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\obj\Debug\TreinSchemaCreator.csprojAssemblyReference.cache
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\obj\Debug\TreinSchemaCreator.exe
-C:\Users\Luukd\OneDrive\Documenten\Fontys\SemesterStart\Proftaak2\TreinSchema\TreinSchemaCreator\TreinSchemaCreator\obj\Debug\TreinSchemaCreator.pdb
