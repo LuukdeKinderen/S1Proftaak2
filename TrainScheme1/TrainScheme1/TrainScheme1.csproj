@@ -57,6 +57,7 @@
     <Compile Include="Rail.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="Train.cs" />
+    <Compile Include="TrainBehaviour.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
