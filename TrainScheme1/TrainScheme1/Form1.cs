@@ -21,41 +21,44 @@ namespace TrainScheme1
         {
             InitializeComponent();
 
-            /*
+
             Random r = new Random();
             string lol = "FxFF 9 ";
 
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 240; i++)
             {
                 int rr = r.Next(0, 5);
-                switch (rr)
+                switch (i)
                 {
                     case 0:
-                        lol += "fffff";
+                        lol += "ffffff";
                         break;
-                    case 1:
+                    case 69:
                         lol += "f036a6";
                         break;
-                    case 2:
+                    case 112:
                         lol += "123456";
                         break;
-                    case 3:
+                    case 85:
                         lol += "abcdef";
                         break;
-                    case 4:
+                     default:
                         lol += "000000";
                         break;
+
                 }
+
+
             }
 
             lol += " FxF0";
 
             Debug.WriteLine(lol);
-            */
 
 
 
-            for (int i = 0; i < 120; i++)
+
+            for (int i = 0; i < 240; i++)
             {
 
                 PictureBox p = new PictureBox
@@ -65,15 +68,8 @@ namespace TrainScheme1
                     Name = "pictureBox1",
                     Size = new System.Drawing.Size(9, 25)
                 };
-                PictureBox p1 = new PictureBox
-                {
-                    BackColor = System.Drawing.SystemColors.ActiveBorder,
-                    Location = new System.Drawing.Point(708, 3),
-                    Name = "pictureBox1",
-                    Size = new System.Drawing.Size(9, 25)
-                };
-                tableLayoutPanel1.Controls.Add(p, i, 0);
-                tableLayoutPanel1.Controls.Add(p1, i, 1);
+
+                tableLayoutPanel1.Controls.Add(p);
             }
 
             timer.Interval = 100;
@@ -98,7 +94,9 @@ namespace TrainScheme1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //trainBehaviour.MoveTrains();
 
+            //DrawRails(trainBehaviour.GetRails());
             timer.Enabled = !timer.Enabled;
             
         }
@@ -176,11 +174,11 @@ namespace TrainScheme1
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         if (rails[ri, r].GetStation().CentralStation())
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#000000");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#22ff00");
                         }
                         else
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFFFFF");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#118000");
                         }
 
                     }

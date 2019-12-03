@@ -16,7 +16,7 @@ namespace TrainScheme1
         private bool centralStation;
         private List<Train> trains = new List<Train>();
         private List<int> trainWaitTime = new List<int>();
-        private Rail[,] rails = new Rail[2,4];
+        private Rail[,] rails = new Rail[2, 4];
 
         /// <summary>
         /// constructs a new Station object
@@ -45,7 +45,7 @@ namespace TrainScheme1
         {
             trains.Add(train);
 
-            
+
             int waitTime = centralStation ? train.Intercity() ? 7 : 25 : 10;
             trainWaitTime.Add(waitTime);
 
@@ -53,29 +53,6 @@ namespace TrainScheme1
             {
 
             }
-
-            /*
-            List<Train> trainsRight = new List<Train>();
-            List<Train> trainsLeft = new List<Train>();
-            for (int t = 0; t < trains.Count; t++)
-            {
-                if (trains[t].GoingRight())
-                {
-                    trainsRight.Add(trains[t]);
-                }
-                else
-                {
-                    trainsLeft.Add(trains[t]);
-                }
-            }
-            for (int i = 0; i < trainsRight.Count; i++)
-            {
-                trainsRight[i].SetRail(rails[1,i]);
-            }
-            for (int i = 0; i < trainsLeft.Count; i++)
-            {
-                trainsLeft[i].SetRail(rails[0,i]);
-            }*/
         }
 
         /// <summary>
@@ -95,7 +72,7 @@ namespace TrainScheme1
         /// <returns>Rail object</returns>
         public int GetPosition()
         {
-            return rails[0,0].GetIndex();
+            return rails[0, 0].GetIndex();
         }
 
         public bool Arrived(Train train)
@@ -105,7 +82,7 @@ namespace TrainScheme1
             {
                 for (int ri = 0; ri < rails.GetLength(1); ri++)
                 {
-                    if(train.GetRail() == rails[r, ri])
+                    if (train.GetRail() == rails[r, ri])
                     {
                         arrived = true;
                     }
@@ -121,8 +98,48 @@ namespace TrainScheme1
         /// <returns>true if Waittime is over</returns>
         public bool ReadytoDepart(Train train)
         {
+
+            int length = rails.GetLength(0) * rails.GetLength(1);
+            Rail[] AllRails = new Rail[length];
+
+            for (int y = 0; y < rails.GetLength(1); y++)
+            {
+                for (int x = 0; x < rails.GetLength(0); x++)
+                {
+                    AllRails[(x * rails.GetLength(1)) + y] = rails[x, y];
+                }
+            }
+
+
+
+            if (train.NeedsToGoRight() && train.GetRail() != rails[1, 0])
+            {
+                MoveTrain(train, AllRails);
+                return false;
+            }
+            else if (!train.NeedsToGoRight() && train.GetRail() != rails[0, 0])
+            {
+                MoveTrain(train, AllRails);
+                return false;
+            }
+
             trainWaitTime[trains.IndexOf(train)]--;
             return trainWaitTime[trains.IndexOf(train)] < 0;
+        }
+
+
+        private void MoveTrain(Train train, Rail[] AllRails)
+        {
+            for (int i = 0; i < AllRails.Length; i++)
+            {
+                if (AllRails[i] == train.GetRail())
+                {
+                    int newRail = i - 1 == -1 ? AllRails.Length - 1 : i - 1;
+
+                    train.SetRail(AllRails[newRail]);
+
+                }
+            }
         }
 
         /// <summary>
