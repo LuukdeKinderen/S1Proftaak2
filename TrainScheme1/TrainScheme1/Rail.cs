@@ -23,6 +23,13 @@ namespace TrainScheme1
             this.index = index;
             this.right = right;
         }
+
+        public Rail()
+        {
+        }
+
+
+
         /// <summary>
         /// Adds a station object to this Rail and sets rail on station
         /// </summary>

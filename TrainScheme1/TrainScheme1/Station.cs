@@ -100,13 +100,13 @@ namespace TrainScheme1
         {
 
             int length = rails.GetLength(0) * rails.GetLength(1);
-            Rail[] AllRails = new Rail[length];
+            Rail[] allRails = new Rail[length];
 
-            for (int y = 0; y < rails.GetLength(1); y++)
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
             {
-                for (int x = 0; x < rails.GetLength(0); x++)
+                for (int r = 0; r < rails.GetLength(1); r++)
                 {
-                    AllRails[(x * rails.GetLength(1)) + y] = rails[x, y];
+                    allRails[(ri * rails.GetLength(1)) + r] = rails[ri, r];
                 }
             }
 
@@ -114,12 +114,12 @@ namespace TrainScheme1
 
             if (train.NeedsToGoRight() && train.GetRail() != rails[1, 0])
             {
-                MoveTrain(train, AllRails);
+                MoveTrain(train, allRails);
                 return false;
             }
             else if (!train.NeedsToGoRight() && train.GetRail() != rails[0, 0])
             {
-                MoveTrain(train, AllRails);
+                MoveTrain(train, allRails);
                 return false;
             }
 
