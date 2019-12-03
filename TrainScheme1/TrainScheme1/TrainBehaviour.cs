@@ -28,12 +28,6 @@ namespace TrainScheme1
                 }
             }
 
-            //stations.Add(new Station("CL", true, new Rail[,] { { rails[0, 0], rails[0, 1], rails[0, 2], rails[0, 3] }, { rails[1, 0], rails[1, 1], rails[1, 2], rails[1, 3] } }));
-            //stations.Add(new Station("KF", false, new Rail[,] { { rails[0, 20], rails[0, 21], rails[0, 22], rails[0, 23] }, { rails[1, 20], rails[1, 21], rails[1, 22], rails[1, 23] } }));
-            //stations.Add(new Station("FR", true, new Rail[,] { { rails[0, 50], rails[0, 51], rails[0, 52], rails[0, 53] }, { rails[1, 50], rails[1, 51], rails[1, 52], rails[1, 53] } }));
-            //stations.Add(new Station("BH", false, new Rail[,] { { rails[0, 70], rails[0, 71], rails[0, 72], rails[0, 73] }, { rails[1, 70], rails[1, 71], rails[1, 72], rails[1, 73] } }));
-            //stations.Add(new Station("BR", false, new Rail[,] { { rails[0, 90], rails[0, 91], rails[0, 92], rails[0, 93] }, { rails[1, 90], rails[1, 91], rails[1, 92], rails[1, 93] } }));
-            //stations.Add(new Station("JP", true, new Rail[,] { { rails[0, 116], rails[0, 117], rails[0, 118], rails[0, 119] }, { rails[1, 116], rails[1, 117], rails[1, 118], rails[1, 119] } }));
 
             stations.Add(new Station("CL", true, new Rail[,] { { rails[0, 0], rails[0, 1], rails[0, 2], rails[0, 3] }, { rails[1, 3], rails[1, 2], rails[1, 1], rails[1, 0] } }));
             stations.Add(new Station("KF", false, new Rail[,] { { rails[0, 20], rails[0, 21], rails[0, 22], rails[0, 23] }, { rails[1, 23], rails[1, 22], rails[1, 21], rails[1, 20] } }));
