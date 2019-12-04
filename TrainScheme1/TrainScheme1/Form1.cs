@@ -72,7 +72,7 @@ namespace TrainScheme1
                 tableLayoutPanel1.Controls.Add(p);
             }
 
-            timer.Interval = 1000;
+            timer.Interval = 50;
             timer.Tick += CycleTick;
             timer.Start();
 
