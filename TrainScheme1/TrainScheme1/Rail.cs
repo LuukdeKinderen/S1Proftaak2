@@ -13,6 +13,7 @@ namespace TrainScheme1
         private int right;
         private Station station;
         private List<Train> trains = new List<Train>();
+        private Wagon wagon;
 
         /// <summary>
         /// Constructs a rail object
@@ -23,12 +24,6 @@ namespace TrainScheme1
             this.index = index;
             this.right = right;
         }
-
-        public Rail()
-        {
-        }
-
-
 
         /// <summary>
         /// Adds a station object to this Rail and sets rail on station
@@ -69,19 +64,10 @@ namespace TrainScheme1
         public bool IsClear()
         {
             bool clear = true;
-            if(trains.Count > 0)
+            if (trains.Count > 0)
             {
-                //for (int t = 0; t < trains.Count; t++)
-                //{
-                //    //Als treinen in dezelfde richting rijden
-                //    if(trains[t].GoingRight() == train.GoingRight())
-                //    {
-                        clear = false;
-                //    }
-                //}
-                
-
-                if(station != null)
+                clear = false;
+                if (station != null)
                 {
                     if (station.CentralStation())
                     {
@@ -89,7 +75,18 @@ namespace TrainScheme1
                     }
                 }
             }
-
+            if (wagon != null)
+            {
+                clear = false;
+                Rail rail = wagon.Gettrain().GetRail();
+                if (rail.GetStation() != null)
+                {
+                    if (rail.GetStation().CentralStation())
+                    {
+                        clear = true;
+                    }
+                }
+            }
             return clear;
         }
 
@@ -100,6 +97,35 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             this.trains.Add(train);
+        }
+
+        public void AddWagon(Wagon[] wagons, Wagon wagon)
+        {
+            int index = Array.IndexOf(wagons, wagon);
+            Rail oldRail = wagon.GetRail();
+
+            wagon.SetRail(this);
+            this.wagon = wagon;
+
+            index++;
+            if (index != wagons.Length)
+            {
+                oldRail.AddWagon(wagons, wagons[index]);
+            }
+            else
+            {
+                oldRail.RemoveWagon();
+            }
+        }
+
+        private void RemoveWagon()
+        {
+            wagon = null;
+        }
+
+        public Wagon GetWagon()
+        {
+            return wagon;
         }
 
         /// <summary>

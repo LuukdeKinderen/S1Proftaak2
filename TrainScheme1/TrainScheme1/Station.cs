@@ -23,11 +23,18 @@ namespace TrainScheme1
         /// </summary>
         /// <param name="name">Name of the new Station</param>
         /// <param name="centralStation">If true => new station is a central Station</param>
-        public Station(string name, bool centralStation, Rail[,] rails)
+        public Station(string name, bool centralStation, int startIndex, Rail[,] rails)
         {
             this.name = name;
             this.centralStation = centralStation;
-            this.rails = rails;
+
+            for (int ri = 0; ri < 2; ri++)
+            {
+                for (int r = 0; r < 4; r++)
+                {
+                    this.rails[ri, r] = rails[ri, ri == 0 ? startIndex + r : startIndex + 3 - r];
+                }
+            }
             for (int r = 0; r < this.rails.GetLength(0); r++)
             {
                 for (int ri = 0; ri < this.rails.GetLength(1); ri++)
@@ -44,15 +51,9 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             trains.Add(train);
-
-
             int waitTime = centralStation ? train.Intercity() ? 7 : 25 : 10;
             trainWaitTime.Add(waitTime);
 
-            for (int t = 0; t < trains.Count; t++)
-            {
-
-            }
         }
 
         /// <summary>
@@ -67,12 +68,18 @@ namespace TrainScheme1
         }
 
         /// <summary>
-        /// Gets main rail of this station
+        /// Gets main rail index of this station
         /// </summary>
-        /// <returns>Rail object</returns>
-        public int GetPosition()
+        public int GetRailIndex()
         {
             return rails[0, 0].GetIndex();
+        }
+        /// <summary>
+        /// Gets main rail of this station
+        /// </summary>
+        public Rail GetRail()
+        {
+            return rails[0, 0];
         }
 
         public bool Arrived(Train train)

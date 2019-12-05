@@ -149,18 +149,44 @@ namespace TrainScheme1
                     if (rails[ri, r].GetTrains().Count > 0)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
-                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + rails[ri, r].GetTrains()[0].GetHEX());
+                        Train train = rails[ri, r].GetTrains()[0];
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + train.GetHEX());
+                    }
+                    
+                    else if (rails[ri, r].GetWagon() != null)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        Wagon wagon = rails[ri, r].GetWagon();
+
+                        //if (!wagon.Gettrain().InStation())
+                        {
+
+                            Color color = new Color();
+                            switch (wagon.GetCroudLevel())
+                            {
+                                case CroudLevel.L:
+                                    color = System.Drawing.ColorTranslator.FromHtml("#00ff00");
+                                    break;
+                                case CroudLevel.M:
+                                    color = System.Drawing.ColorTranslator.FromHtml("#fbff00");
+                                    break;
+                                case CroudLevel.H:
+                                    color = System.Drawing.ColorTranslator.FromHtml("#ff0000");
+                                    break;
+                            }
+                            p.BackColor = color;
+                        }
                     }
                     else if (rails[ri, r].GetStation() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         if (rails[ri, r].GetStation().CentralStation())
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#22ff00");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#fc03ca");
                         }
                         else
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#118000");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#6e0058");
                         }
 
                     }

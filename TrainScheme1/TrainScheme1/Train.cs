@@ -20,20 +20,40 @@ namespace TrainScheme1
         private int nextDestination = 0;
         private bool inStation;
 
+        private Wagon[] wagons;
+
+        private Random r = new Random();
+
         /// <summary>
-        /// Constructs a new Train object
+        /// Constructs a new train opbject
         /// </summary>
-        /// <param name="name">name of the new Train</param>
-        /// <param name="intercity">When true => new Train is intercity</param>
-        /// <param name="route">Array of stations to cover on full train cycle, please include return</param>
-        /// <param name="rail">Rail to start on</param>
-        public Train(string name,string HEX, bool intercity, Station[] route,Rail rail)
+        /// <param name="name">name of the new train</param>
+        /// <param name="HEX">indicator color of train</param>
+        /// <param name="intercity">if true new train is an intercity</param>
+        /// <param name="route">the route the train needs to take</param>
+        public Train(string name, string HEX, bool intercity, Station[] route)
         {
             this.name = name;
             this.HEX = HEX;
             this.intercity = intercity;
             this.route = route;
-            this.rail = rail;
+            rail = route[0].GetRail();
+
+            if (intercity)
+            {
+                wagons = new Wagon[3];
+            }
+            else
+            {
+                wagons = new Wagon[2];
+            }
+            
+
+            for (int w = 0; w < wagons.Length; w++)
+            {
+                wagons[w] = new Wagon(rail, this);
+            }
+
         }
 
         /// <summary>
@@ -43,8 +63,10 @@ namespace TrainScheme1
         public void SetRail(Rail rail)
         {
             this.rail.RemoveTrain(this);
+            this.rail.AddWagon(wagons, wagons[0]);
             this.rail = rail;
             this.rail.AddTrain(this);
+
         }
 
         /// <summary>
@@ -63,11 +85,37 @@ namespace TrainScheme1
         {
             return route[nextDestination].Arrived(this);
         }
-        
 
+        /// <summary>
+        /// this train has arrived on a station
+        /// </summary>
+        public void Arrive()
+        {
+            inStation = true;
+            SetNextDestination();
+            rail.GetStation().AddTrain(this);
+        }
+
+        /// <summary>
+        /// this train leaves the station
+        /// </summary>
+        public void Depart()
+        {
+
+            for (int w = 0; w < wagons.Length; w++)
+            {
+                wagons[w].SetRandomCroudLevel(r.Next(0, 3));
+            }
+            inStation = false;
+        }
+
+        /// <summary>
+        /// Checks if train needs to go right to reach the next destination on his route
+        /// </summary>
+        /// <returns></returns>
         public bool NeedsToGoRight()
         {
-            return rail.GetIndex() < route[nextDestination].GetPosition();
+            return rail.GetIndex() < route[nextDestination].GetRailIndex();
         }
 
         /// <summary>
@@ -88,27 +136,13 @@ namespace TrainScheme1
             return inStation;
         }
 
+        /// <summary>
+        /// retruns true if this train is an Intercity
+        /// </summary>
+        /// <returns></returns>
         public bool Intercity()
         {
             return intercity;
-        }
-
-        /// <summary>
-        /// this train leaves the station
-        /// </summary>
-        public void Depart()
-        {
-            inStation = false;
-        }
-
-        /// <summary>
-        /// this train has arrived on a station
-        /// </summary>
-        public void Arrive()
-        {
-            inStation = true;
-            SetNextDestination();
-            rail.GetStation().AddTrain(this);
         }
 
         /// <summary>
@@ -118,6 +152,15 @@ namespace TrainScheme1
         public string GetHEX()
         {
             return HEX;
+        }
+
+        /// <summary>
+        /// Gets all wagons of this train
+        /// </summary>
+        /// <returns></returns>
+        public Wagon[] GetWagons()
+        {
+            return wagons;
         }
     }
 }
