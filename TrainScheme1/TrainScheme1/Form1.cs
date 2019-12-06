@@ -72,7 +72,7 @@ namespace TrainScheme1
                 tableLayoutPanel1.Controls.Add(p);
             }
 
-            timer.Interval = 50;
+            timer.Interval = 300;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -119,17 +119,17 @@ namespace TrainScheme1
                 {
                     hex[i] = allRails[i].GetTrains()[0].GetHEX();
                 }
+                else if (allRails[i].GetWagon() != null)
+                {
+                    hex[i] = allRails[i].GetWagon().GetHEX();
+                }
             }
 
             for (int i = 0; i < hex.Length; i++)
             {
                 if (prevHex[i] != hex[i])
                 {
-                    longString += i.ToString("000")+hex[i];
-                }
-                else
-                {
-                    //longString += "zzzzzz";
+                    longString += i.ToString("000") + hex[i];
                 }
             }
 
@@ -152,41 +152,23 @@ namespace TrainScheme1
                         Train train = rails[ri, r].GetTrains()[0];
                         p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + train.GetHEX());
                     }
-                    
+
                     else if (rails[ri, r].GetWagon() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         Wagon wagon = rails[ri, r].GetWagon();
-
-                        //if (!wagon.Gettrain().InStation())
-                        {
-
-                            Color color = new Color();
-                            switch (wagon.GetCroudLevel())
-                            {
-                                case CroudLevel.L:
-                                    color = System.Drawing.ColorTranslator.FromHtml("#00ff00");
-                                    break;
-                                case CroudLevel.M:
-                                    color = System.Drawing.ColorTranslator.FromHtml("#fbff00");
-                                    break;
-                                case CroudLevel.H:
-                                    color = System.Drawing.ColorTranslator.FromHtml("#ff0000");
-                                    break;
-                            }
-                            p.BackColor = color;
-                        }
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + wagon.GetHEX());
                     }
                     else if (rails[ri, r].GetStation() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         if (rails[ri, r].GetStation().CentralStation())
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#fc03ca");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#4a4a4a");
                         }
                         else
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#6e0058");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#878787");
                         }
 
                     }

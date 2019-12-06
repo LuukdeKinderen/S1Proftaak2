@@ -68,6 +68,23 @@ namespace TrainScheme1
             this.rail = rail;
         }
 
+        public string GetHEX()
+        {
+            switch (croudLevel)
+            {
+                case CroudLevel.L:
+                    return "00ff00";
+                    break;
+                case CroudLevel.M:
+                    return "fbff00";
+                    break;
+                case CroudLevel.H:
+                    return "ff0000";
+                    break;
+            }
+            return "";
+        }
+
 
     }
 }

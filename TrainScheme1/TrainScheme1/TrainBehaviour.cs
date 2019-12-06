@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrainScheme1
 {
-    
+
     class TrainBehaviour
     {
         //Space to leave clear in front of train
@@ -31,11 +31,11 @@ namespace TrainScheme1
 
 
 
-            stations.Add(new Station("CL", true,0, rails));
-            stations.Add(new Station("KF", false,20 ,rails));
-            stations.Add(new Station("FR", true, 60, rails));
-            stations.Add(new Station("BH", false,70 , rails));
-            stations.Add(new Station("BR", false,90, rails));
+            stations.Add(new Station("CL", true, 0, rails));
+            stations.Add(new Station("KF", false, 20, rails));
+            stations.Add(new Station("FR", true, 46, rails));
+            stations.Add(new Station("BH", false, 70, rails));
+            stations.Add(new Station("BR", false, 90, rails));
             stations.Add(new Station("JP", true, 116, rails));
 
 
