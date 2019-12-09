@@ -13,126 +13,218 @@ namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
-        Rail[] rails = new Rail[120];
         Timer timer = new Timer();
-
-        List<Station> stations = new List<Station>();
-        List<Train> trains = new List<Train>();
+        TrainBehaviour trainBehaviour = new TrainBehaviour();
+        string[] prevHex = new string[240];
 
         public Form1()
         {
             InitializeComponent();
 
-            for (int r = 0; r < rails.Length; r++)
+
+            //Random r = new Random();
+            //string lol = "FxFF 9 ";
+
+            //for (int i = 0; i < 240; i++)
+            //{
+            //    int rr = r.Next(0, 5);
+            //    switch (i)
+            //    {
+            //        case 0:
+            //            lol += "ffffff";
+            //            break;
+            //        case 69:
+            //            lol += "f036a6";
+            //            break;
+            //        case 112:
+            //            lol += "123456";
+            //            break;
+            //        case 85:
+            //            lol += "abcdef";
+            //            break;
+            //         default:
+            //            lol += "000000";
+            //            break;
+
+            //    }
+
+
+            //}
+
+            //lol += " FxF0";
+
+            //Debug.WriteLine(lol);
+
+
+
+
+            for (int i = 0; i < 240; i++)
             {
-                rails[r] = new Rail(r);
+
+                PictureBox p = new PictureBox
+                {
+                    BackColor = System.Drawing.SystemColors.ActiveBorder,
+                    Location = new System.Drawing.Point(708, 3),
+                    Name = "pictureBox1",
+                    Size = new System.Drawing.Size(9, 25)
+                };
+
+                tableLayoutPanel1.Controls.Add(p);
             }
 
+
+
             timer.Interval = 1;
-            timer.Tick += MoveTrains;
-
-            stations.Add(new Station("CL", true));
-            rails[0].AddStation(stations[0]);
-
-            stations.Add(new Station("KF", true));
-            rails[20].AddStation(stations[1]);
-
-            trains.Add(new Train("I1", true, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("I2", true, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("S1", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            trains.Add(new Train("S2", false, true, new Station[] { stations[0], stations[1], stations[0] }, rails[0]));
-            //rails[0].GetStation().AddTrain(trains[0]);
+            timer.Tick += CycleTick;
+            timer.Start();
 
         }
 
 
 
 
-        void MoveTrains(object source, EventArgs e)
+        void CycleTick(object source, EventArgs e)
         {
-
-            for (int t = 0; t < trains.Count; t++)
-            {
-                Train train = trains[t];
-                bool right = train.GetRail().GetIndex() < train.DestinationRail().GetIndex();
-                int trainPos = train.GetRail().GetIndex();
-                bool clear = true;
-                //CHECK FOR LEFT!!!
-                for (int i = trainPos + 1; i < trainPos + 6; i++)
-                {
-                    if (rails[i].GetTrain() != null && !rails[i].GetTrain().InStation())
-                    {
-                        clear = false;
-                    }
-                }
-                if (clear)
-                {
-                    //Als trein in het volgende station aangekomen is.
-                    if (train.GetRail() == train.DestinationRail())
-                    {
-                        train.Arrive();
-                        train.GetRail().GetStation().AddTrain(train);
-                        train.SetNextDestination();
-                    }
-                    //Als trein niet in het station staat (aan het rijden is)
-                    if (!train.InStation())
-                    {
-                        int factor = right ? 1 : -1;
-                        train.SetRail(rails[train.GetRail().GetIndex() + factor]);
-                    }
-                    else if (train.GetRail().GetStation().ReadytoDepart(train))
-                    {
-                        train.GetRail().GetStation().DepartTrain(train);
-                    }
-                }
-            }
-
-            for (int r = 0; r < rails.Length; r++)
-            {
-                Debug.Write("|| ");
-            }
-            Debug.WriteLine("");
-            for (int r = 0; r < rails.Length; r++)
-            {
-                if (rails[r].GetStation() != null)
-                {
-                    for (int i = 0; i < rails.Length; i++)
-                    {
-                        if (r != i)
-                        {
-                            Debug.Write("-- ");
-                        }
-                        else
-                        {
-                            Debug.Write(rails[r].GetStation().name + " ");
-                        }
-                    }
-                    Debug.WriteLine("");
-                }
-                if (rails[r].GetTrain() != null)
-                {
-                    for (int i = 0; i < rails.Length; i++)
-                    {
-                        if (r != i)
-                        {
-                            Debug.Write("-- ");
-                        }
-                        else
-                        {
-                            Debug.Write(rails[r].GetTrain().name + " ");
-                        }
-                    }
-                    Debug.WriteLine("");
-                }
-            }
-
-
+            trainBehaviour.MoveTrains();
+            DrawRails(trainBehaviour.GetRails());
+            Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Enabled = !timer.Enabled;
         }
+
+        private string GenerateDifferenceHexString(Rail[,] rails)
+        {
+            Rail[] allRails = new Rail[240];
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
+            {
+                for (int r = 0; r < rails.GetLength(1); r++)
+                {
+                    allRails[(ri * rails.GetLength(1)) + r] = rails[ri, r];
+                }
+            }
+
+            string longString = "FxFF 9 ";
+            string[] hex = new string[240];
+            for (int i = 0; i < hex.Length; i++)
+            {
+                hex[i] = "&";
+            }
+
+
+            for (int i = 0; i < allRails.Length; i++)
+            {
+                if (allRails[i].GetTrains().Count > 0)
+                {
+                    hex[i] = allRails[i].GetTrains()[0].GetHEX();
+                }
+                else if (allRails[i].GetWagon() != null)
+                {
+                    hex[i] = allRails[i].GetWagon().GetHEX();
+                }
+            }
+
+            for (int i = 0; i < hex.Length; i++)
+            {
+                if (prevHex[i] != hex[i])
+                {
+                    longString += i.ToString("000") + hex[i];
+                }
+            }
+
+            longString += "~";
+            prevHex = hex;
+            return longString;
+
+        }
+
+
+        private string GenerateHexString(Rail[,] rails)
+        {
+            Rail[] allRails = new Rail[240];
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
+            {
+                for (int r = 0; r < rails.GetLength(1); r++)
+                {
+                    allRails[(ri * rails.GetLength(1)) + r] = rails[ri, r];
+                }
+            }
+
+            string longString = "FxFF 9 ";
+
+
+
+            for (int i = 0; i < allRails.Length; i++)
+            {
+                if (allRails[i].GetTrains().Count > 0)
+                {
+                    longString += i.ToString("000") + allRails[i].GetTrains()[0].GetHEX();
+                }
+                else if (allRails[i].GetWagon() != null)
+                {
+                    longString += i.ToString("000") + allRails[i].GetWagon().GetHEX();
+                }
+            }
+
+
+            longString += "~";
+            return longString;
+
+        }
+
+
+        private void DrawRails(Rail[,] rails)
+        {
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
+            {
+                for (int r = 0; r < rails.GetLength(1); r++)
+                {
+
+                    if (rails[ri, r].GetTrains().Count > 0)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        Train train = rails[ri, r].GetTrains()[0];
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + train.GetHEX());
+                    }
+
+                    else if (rails[ri, r].GetWagon() != null)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        Wagon wagon = rails[ri, r].GetWagon();
+                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + wagon.GetHEX());
+                    }
+                    else if (rails[ri, r].GetStation() != null)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        if (rails[ri, r].GetStation().CentralStation())
+                        {
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#4a4a4a");
+                        }
+                        else
+                        {
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#878787");
+                        }
+
+                    }
+                    else
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        p.BackColor = System.Drawing.SystemColors.Control;
+                    }
+
+                }
+            }
+
+
+
+
+        }
+
+
+
+
 
 
     }
