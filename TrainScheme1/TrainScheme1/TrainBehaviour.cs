@@ -40,10 +40,10 @@ namespace TrainScheme1
 
 
 
-            trains.Add(new Train("I1", "001ccf", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }));
-            trains.Add(new Train("I2", "001ccf", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }));
-            trains.Add(new Train("S1", "00c5cf", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }));
-            trains.Add(new Train("S2", "00c5cf", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }));
+            trains.Add(new Train("I1", "00fffb", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }));
+            trains.Add(new Train("I2", "00ff22", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }));
+            trains.Add(new Train("S1", "ddff00", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }));
+            trains.Add(new Train("S2", "ff0000", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }));
         }
 
         public void MoveTrains()

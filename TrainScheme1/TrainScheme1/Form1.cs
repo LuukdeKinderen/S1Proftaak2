@@ -72,7 +72,9 @@ namespace TrainScheme1
                 tableLayoutPanel1.Controls.Add(p);
             }
 
-            timer.Interval = 300;
+
+
+            timer.Interval = 1;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -84,7 +86,6 @@ namespace TrainScheme1
         void CycleTick(object source, EventArgs e)
         {
             trainBehaviour.MoveTrains();
-
             DrawRails(trainBehaviour.GetRails());
             Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
         }
@@ -94,7 +95,7 @@ namespace TrainScheme1
             timer.Enabled = !timer.Enabled;
         }
 
-        private string GenerateHexString(Rail[,] rails)
+        private string GenerateDifferenceHexString(Rail[,] rails)
         {
             Rail[] allRails = new Rail[240];
             for (int ri = 0; ri < rails.GetLength(0); ri++)
@@ -109,7 +110,7 @@ namespace TrainScheme1
             string[] hex = new string[240];
             for (int i = 0; i < hex.Length; i++)
             {
-                hex[i] = "000000";
+                hex[i] = "&";
             }
 
 
@@ -138,6 +139,41 @@ namespace TrainScheme1
             return longString;
 
         }
+
+
+        private string GenerateHexString(Rail[,] rails)
+        {
+            Rail[] allRails = new Rail[240];
+            for (int ri = 0; ri < rails.GetLength(0); ri++)
+            {
+                for (int r = 0; r < rails.GetLength(1); r++)
+                {
+                    allRails[(ri * rails.GetLength(1)) + r] = rails[ri, r];
+                }
+            }
+
+            string longString = "FxFF 9 ";
+
+
+
+            for (int i = 0; i < allRails.Length; i++)
+            {
+                if (allRails[i].GetTrains().Count > 0)
+                {
+                    longString += i.ToString("000") + allRails[i].GetTrains()[0].GetHEX();
+                }
+                else if (allRails[i].GetWagon() != null)
+                {
+                    longString += i.ToString("000") + allRails[i].GetWagon().GetHEX();
+                }
+            }
+
+
+            longString += "~";
+            return longString;
+
+        }
+
 
         private void DrawRails(Rail[,] rails)
         {
@@ -185,6 +221,11 @@ namespace TrainScheme1
 
 
         }
+
+
+
+
+
 
     }
 }
