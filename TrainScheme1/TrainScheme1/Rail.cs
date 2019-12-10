@@ -13,7 +13,7 @@ namespace TrainScheme1
         private int right;
         private Station station;
         private List<Train> trains = new List<Train>();
-        private Wagon wagon;
+        private List<Wagon> wagons = new List<Wagon>();
 
         /// <summary>
         /// Constructs a rail object
@@ -75,10 +75,10 @@ namespace TrainScheme1
                     }
                 }
             }
-            if (wagon != null)
+            if (wagons.Count > 0)
             {
                 clear = false;
-                Rail rail = wagon.Gettrain().GetRail();
+                Rail rail = wagons[0].Gettrain().GetRail();
                 if (rail.GetStation() != null)
                 {
                     if (rail.GetStation().CentralStation())
@@ -105,27 +105,34 @@ namespace TrainScheme1
             Rail oldRail = wagon.GetRail();
 
             wagon.SetRail(this);
-            this.wagon = wagon;
+            this.wagons.Add(wagon);
 
             index++;
             if (index != wagons.Length)
             {
                 oldRail.AddWagon(wagons, wagons[index]);
             }
-            else
-            {
-                oldRail.RemoveWagon();
-            }
+
+            oldRail.RemoveWagon(wagons[index - 1]);
+
         }
 
-        private void RemoveWagon()
+        private void RemoveWagon(Wagon wagon)
         {
-            wagon = null;
+            wagons.Remove(wagon);
         }
 
         public Wagon GetWagon()
         {
-            return wagon;
+            if (wagons.Count > 0)
+            {
+                return wagons[0];
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         /// <summary>
@@ -145,6 +152,7 @@ namespace TrainScheme1
         {
             return trains;
         }
+
 
     }
 }
