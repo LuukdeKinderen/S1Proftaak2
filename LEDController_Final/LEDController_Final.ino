@@ -26,11 +26,9 @@ void setup() {
   FastLED.addLeds<WS2812, stripPin1, GRB>(leds[1], numberLed); 
 
   for (int i = 0; i < 120; i++) {
-    for (int x = 0; x < 3; x++) {
       leds[0][i] = CRGB(0, 0, 0);
       leds[1][i] = CRGB(0, 0, 0);
     }
-  }
   FastLED.show();
 
       
