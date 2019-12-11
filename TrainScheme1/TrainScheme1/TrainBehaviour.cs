@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TrainScheme1
 {
@@ -40,10 +41,10 @@ namespace TrainScheme1
 
 
 
-            trains.Add(new Train("I1", "00fffb", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }));
-            trains.Add(new Train("I2", "00ff22", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }));
-            trains.Add(new Train("S1", "ddff00", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }));
-            trains.Add(new Train("S2", "ff0000", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }));
+            trains.Add(new Train("I1", Color.FromArgb(255, 0, 0), true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }));
+            trains.Add(new Train("I2", Color.FromArgb(255,255, 0), true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }));
+            trains.Add(new Train("S1", Color.FromArgb(0, 255, 0), false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }));
+            trains.Add(new Train("S2", Color.FromArgb(0, 0, 255), false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }));
         }
 
         public void MoveTrains()
