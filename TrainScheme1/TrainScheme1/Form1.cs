@@ -8,17 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO.Ports;
 
 namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
+        SerialPort SerialPort1 = new SerialPort("COM12", 9600);
         Timer timer = new Timer();
         TrainBehaviour trainBehaviour = new TrainBehaviour();
         string[] prevHex = new string[240];
 
         public Form1()
         {
+            SerialPort1.Open();
             InitializeComponent();
 
 
@@ -74,7 +77,7 @@ namespace TrainScheme1
 
 
 
-            timer.Interval = 1;
+            timer.Interval = 150;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -87,6 +90,8 @@ namespace TrainScheme1
         {
             trainBehaviour.MoveTrains();
             DrawRails(trainBehaviour.GetRails());
+
+            SerialPort1.Write(GenerateHexString(trainBehaviour.GetRails()));
             Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
         }
 
@@ -222,10 +227,9 @@ namespace TrainScheme1
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
-
-
-
-
+        }
     }
 }
