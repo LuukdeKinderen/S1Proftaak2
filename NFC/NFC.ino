@@ -37,7 +37,7 @@ void setup() {
 
   for (byte i = 0; i < 4; i++) {
     key.keyByte[i] = 0xFF;
-  } 
+  }
 
  
 }
@@ -50,6 +50,7 @@ void loop() {
     switch(customKey) {
       case 42:
         keyString = ""; 
+        Serial.println(F("Leeg"));
         break;
 
       case 35:
