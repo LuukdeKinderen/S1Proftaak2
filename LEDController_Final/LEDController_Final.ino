@@ -184,6 +184,8 @@ void CleanUp() {
 
   double endTime = millis() - startTime;
   Serial.println(endTime);
-  
+
+  Serial.end();
+  Serial.begin(9600);
   bufferInput[1500];
 }
