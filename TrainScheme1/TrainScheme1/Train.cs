@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TrainScheme1
 {
@@ -14,7 +15,7 @@ namespace TrainScheme1
         public string name;
         private bool intercity;
         private Rail rail;
-        private string HEX;
+        private Color color;
 
         private Station[] route;
         private int nextDestination = 0;
@@ -31,10 +32,10 @@ namespace TrainScheme1
         /// <param name="HEX">indicator color of train</param>
         /// <param name="intercity">if true new train is an intercity</param>
         /// <param name="route">the route the train needs to take</param>
-        public Train(string name, string HEX, bool intercity, Station[] route)
+        public Train(string name, Color color, bool intercity, Station[] route)
         {
             this.name = name;
-            this.HEX = HEX;
+            this.color = color;
             this.intercity = intercity;
             this.route = route;
             rail = route[0].GetRail();
@@ -145,13 +146,9 @@ namespace TrainScheme1
             return intercity;
         }
 
-        /// <summary>
-        /// retruns HEX value of this trian
-        /// </summary>
-        /// <returns></returns>
-        public string GetHEX()
+        public Color GetColor()
         {
-            return HEX;
+            return color;
         }
 
         /// <summary>

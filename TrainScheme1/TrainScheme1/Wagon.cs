@@ -70,25 +70,19 @@ namespace TrainScheme1
             this.rail = rail;
         }
 
-        public string GetHEX()
+        public Color GetColor()
         {
-            Color c = ColorTranslator.FromHtml("#" + train.GetHEX());
+            Color c = train.GetColor();
             switch (croudLevel)
             {
                 case CroudLevel.L:
-                    return HexConverter(ChangeColorBrightness(c, -.5f));
+                    return ChangeColorBrightness(c, -.5f);
                 case CroudLevel.M:
-                    return HexConverter(ChangeColorBrightness(c, -.3f));
+                    return ChangeColorBrightness(c, -.3f);
                 case CroudLevel.H:
-                    return HexConverter(ChangeColorBrightness(c, -.1f));
+                    return ChangeColorBrightness(c, -.1f);
             }
-            return "";
-        }
-
-
-        private static String HexConverter(Color c)
-        {
-            return c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+            return c;
         }
 
         public Color ChangeColorBrightness(Color color, float correctionFactor)

@@ -15,48 +15,10 @@ namespace TrainScheme1
     {
         Timer timer = new Timer();
         TrainBehaviour trainBehaviour = new TrainBehaviour();
-        string[] prevHex = new string[240];
 
         public Form1()
         {
             InitializeComponent();
-
-
-            //Random r = new Random();
-            //string lol = "FxFF 9 ";
-
-            //for (int i = 0; i < 240; i++)
-            //{
-            //    int rr = r.Next(0, 5);
-            //    switch (i)
-            //    {
-            //        case 0:
-            //            lol += "ffffff";
-            //            break;
-            //        case 69:
-            //            lol += "f036a6";
-            //            break;
-            //        case 112:
-            //            lol += "123456";
-            //            break;
-            //        case 85:
-            //            lol += "abcdef";
-            //            break;
-            //         default:
-            //            lol += "000000";
-            //            break;
-
-            //    }
-
-
-            //}
-
-            //lol += " FxF0";
-
-            //Debug.WriteLine(lol);
-
-
-
 
             for (int i = 0; i < 240; i++)
             {
@@ -74,7 +36,7 @@ namespace TrainScheme1
 
 
 
-            timer.Interval = 1;
+            timer.Interval = 300;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -93,51 +55,6 @@ namespace TrainScheme1
         private void button1_Click(object sender, EventArgs e)
         {
             timer.Enabled = !timer.Enabled;
-        }
-
-        private string GenerateDifferenceHexString(Rail[,] rails)
-        {
-            Rail[] allRails = new Rail[240];
-            for (int ri = 0; ri < rails.GetLength(0); ri++)
-            {
-                for (int r = 0; r < rails.GetLength(1); r++)
-                {
-                    allRails[(ri * rails.GetLength(1)) + r] = rails[ri, r];
-                }
-            }
-
-            string longString = "FxFF 9 ";
-            string[] hex = new string[240];
-            for (int i = 0; i < hex.Length; i++)
-            {
-                hex[i] = "&";
-            }
-
-
-            for (int i = 0; i < allRails.Length; i++)
-            {
-                if (allRails[i].GetTrains().Count > 0)
-                {
-                    hex[i] = allRails[i].GetTrains()[0].GetHEX();
-                }
-                else if (allRails[i].GetWagon() != null)
-                {
-                    hex[i] = allRails[i].GetWagon().GetHEX();
-                }
-            }
-
-            for (int i = 0; i < hex.Length; i++)
-            {
-                if (prevHex[i] != hex[i])
-                {
-                    longString += i.ToString("000") + hex[i];
-                }
-            }
-
-            longString += "~";
-            prevHex = hex;
-            return longString;
-
         }
 
 
@@ -160,11 +77,13 @@ namespace TrainScheme1
             {
                 if (allRails[i].GetTrains().Count > 0)
                 {
-                    longString += i.ToString("000") + allRails[i].GetTrains()[0].GetHEX();
+                    Color c = allRails[i].GetTrains()[0].GetColor();
+                    longString += i.ToString("000") + c.R.ToString("000") + c.G.ToString("000") + c.B.ToString("000");
                 }
                 else if (allRails[i].GetWagon() != null)
                 {
-                    longString += i.ToString("000") + allRails[i].GetWagon().GetHEX();
+                    Color c = allRails[i].GetWagon().GetColor();
+                    longString += i.ToString("000") + c.R.ToString("000") + c.G.ToString("000") + c.B.ToString("000");
                 }
             }
 
@@ -186,14 +105,14 @@ namespace TrainScheme1
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         Train train = rails[ri, r].GetTrains()[0];
-                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + train.GetHEX());
+                        p.BackColor = train.GetColor();
                     }
 
                     else if (rails[ri, r].GetWagon() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         Wagon wagon = rails[ri, r].GetWagon();
-                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + wagon.GetHEX());
+                        p.BackColor = wagon.GetColor();
                     }
                     else if (rails[ri, r].GetStation() != null)
                     {
