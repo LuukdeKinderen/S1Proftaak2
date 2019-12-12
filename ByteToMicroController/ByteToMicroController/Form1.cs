@@ -10,17 +10,17 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.Net;
-using System.Text;
 
 namespace ByteToMicroController
 {
-
-
+    
+    
     public partial class Form1 : Form
     {
-
+        bool checkedIn = true;
         String[] ports;
         SerialPort serialPort1 = new SerialPort("COM4", 9600);
+
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +36,6 @@ namespace ByteToMicroController
             
             }
         }
-
         private void loop()
         {
             serialPort1.PortName = comboBox1.SelectedItem.ToString();
@@ -46,7 +45,6 @@ namespace ByteToMicroController
             OutputBox.Text = receivePayload;
             Console.WriteLine(receivePayload);
 
-            serialPort1.Close();
 
             string inputString = receivePayload;
             char[] inputChar = inputString.ToCharArray();
@@ -56,13 +54,27 @@ namespace ByteToMicroController
             OutputBox2.Text = substring;
             OutputBox3.Text = adress.ToString();
 
+          
+            if (checkedIn == true)
+            {
+                textBox1.Text = "Ingecheckt";
+                checkedIn = !checkedIn;
+                serialPort1.Write("Ingecheckt~");
+            }
+            else if(checkedIn == false)
+            {
+                checkedIn = !checkedIn;
+                textBox1.Text = "Uitgecheckt";
+                serialPort1.Write("Uitgecheckt~");
+            }
 
+            serialPort1.Close();
             loop();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            
             loop();
         }
 
@@ -89,6 +101,18 @@ namespace ByteToMicroController
 
             Console.WriteLine(responseFromServer);
         }
+
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            
+
+
+           
+            
+
+        }
+            
+            
         
     }
 }

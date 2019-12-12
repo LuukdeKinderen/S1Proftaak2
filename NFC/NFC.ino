@@ -1,7 +1,10 @@
- 
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Keypad.h>
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE); 
 
 const byte ROWS = 4; 
 const byte COLS = 3; 
@@ -32,6 +35,9 @@ byte nuidPICC[4];
 
 void setup() {
   Serial.begin(9600);
+  lcd.begin(16,2);
+  lcd.setCursor(0,0); 
+  lcd.print("Hello, world!");
   SPI.begin(); // Init SPI bus
   rfid.PCD_Init(); // Init MFRC522
 
@@ -39,12 +45,44 @@ void setup() {
     key.keyByte[i] = 0xFF;
   }
 
- 
+   lcd.clear();
 }
  
 void loop() {
 
   char  customKey = customKeypad.getKey();
+
+
+
+  {
+    if (Serial.available()) {
+      // wait a bit for the entire message to arrive
+      delay(100);
+      // clear the screen
+      lcd.clear();
+      // read all the available characters
+      while (Serial.available() > 0) {
+        // display each character to the LCD
+//        char bufferInput[32];
+//        for (int i = 0; i < 32; i++) {
+//          bufferInput[i] = "";
+//        }
+//        Serial.readBytesUntil('~', bufferInput, 32);
+//        Serial.println(bufferInput);
+        char bufferInput[32];
+        int readBit = 0;
+        while (Serial.available()) {
+          bufferInput[readBit] = Serial.read();
+          readBit++;
+             }
+        lcd.write(bufferInput);
+        }
+        
+    }
+  }
+
+
+
 
   if (customKey != NULL) {
     switch(customKey) {
