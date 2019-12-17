@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.Net;
+using MySql.Data.MySqlClient;
 
 namespace ByteToMicroController
 {
