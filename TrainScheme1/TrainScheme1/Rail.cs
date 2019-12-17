@@ -10,7 +10,7 @@ namespace TrainScheme1
     {
 
         private int index;
-        private int right;
+        private int forward;
         private Station station;
         private List<Train> trains = new List<Train>();
         private List<Wagon> wagons = new List<Wagon>();
@@ -19,10 +19,10 @@ namespace TrainScheme1
         /// Constructs a rail object
         /// </summary>
         /// <param name="index">The index of the Rail object {0-120}</param>
-        public Rail(int right, int index)
+        public Rail(int forward, int index)
         {
             this.index = index;
-            this.right = right;
+            this.forward = forward;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace TrainScheme1
 
         public int GetRight()
         {
-            return right;
+            return forward;
         }
 
         /// <summary>

@@ -25,13 +25,13 @@ namespace TrainScheme1
 
         private Random r = new Random();
 
-        /// <summary>
-        /// Constructs a new train opbject
-        /// </summary>
-        /// <param name="name">name of the new train</param>
-        /// <param name="HEX">indicator color of train</param>
-        /// <param name="intercity">if true new train is an intercity</param>
-        /// <param name="route">the route the train needs to take</param>
+/// <summary>
+/// Creates a train object
+/// </summary>
+/// <param name="name"></param>
+/// <param name="color"></param>
+/// <param name="intercity"></param>
+/// <param name="route"></param>
         public Train(string name, Color color, bool intercity, Station[] route)
         {
             this.name = name;
@@ -111,10 +111,10 @@ namespace TrainScheme1
         }
 
         /// <summary>
-        /// Checks if train needs to go right to reach the next destination on his route
+        /// Checks if train needs to go forward to reach the next destination on his route
         /// </summary>
         /// <returns></returns>
-        public bool NeedsToGoRight()
+        public bool NeedsToGoForward()
         {
             return rail.GetIndex() < route[nextDestination].GetRailIndex();
         }

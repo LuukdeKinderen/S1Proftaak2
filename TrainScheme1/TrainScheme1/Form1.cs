@@ -14,13 +14,13 @@ namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
-        SerialPort SerialPort1 = new SerialPort("COM12", 9600);
+        //SerialPort SerialPort1 = new SerialPort("COM12", 9600);
         Timer timer = new Timer();
         TrainBehaviour trainBehaviour = new TrainBehaviour();
 
         public Form1()
         {
-            SerialPort1.Open();
+            //SerialPort1.Open();
             InitializeComponent();
 
             for (int i = 0; i < 240; i++)
@@ -29,9 +29,8 @@ namespace TrainScheme1
                 PictureBox p = new PictureBox
                 {
                     BackColor = System.Drawing.SystemColors.ActiveBorder,
-                    Location = new System.Drawing.Point(708, 3),
                     Name = "pictureBox1",
-                    Size = new System.Drawing.Size(9, 25)
+                    Size = new System.Drawing.Size(9, 9)
                 };
 
                 tableLayoutPanel1.Controls.Add(p);
@@ -53,7 +52,7 @@ namespace TrainScheme1
             trainBehaviour.MoveTrains();
             DrawRails(trainBehaviour.GetRails());
 
-            SerialPort1.Write(GenerateHexString(trainBehaviour.GetRails()));
+           // SerialPort1.Write(GenerateHexString(trainBehaviour.GetRails()));
             Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
         }
 

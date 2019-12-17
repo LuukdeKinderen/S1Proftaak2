@@ -119,12 +119,12 @@ namespace TrainScheme1
 
 
 
-            if (train.NeedsToGoRight() && train.GetRail() != rails[1, 0])
+            if (train.NeedsToGoForward() && train.GetRail() != rails[1, 0])
             {
                 MoveTrain(train, allRails);
                 return false;
             }
-            else if (!train.NeedsToGoRight() && train.GetRail() != rails[0, 0])
+            else if (!train.NeedsToGoForward() && train.GetRail() != rails[0, 0])
             {
                 MoveTrain(train, allRails);
                 return false;

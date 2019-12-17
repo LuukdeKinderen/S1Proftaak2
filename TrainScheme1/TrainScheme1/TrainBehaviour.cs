@@ -52,11 +52,11 @@ namespace TrainScheme1
             for (int t = 0; t < trains.Count; t++)
             {
                 Train train = trains[t];
-                bool right = train.NeedsToGoRight();
+                bool forward = train.NeedsToGoForward();
                 int trainPos = train.GetRail().GetIndex();
                 bool clear = true;
 
-                if (right)
+                if (forward)
                 {
                     for (int i = trainPos + 1; i < trainPos + clearSpace; i++)
                     {
@@ -94,8 +94,8 @@ namespace TrainScheme1
                 {
                     if (clear)
                     {
-                        int factor = right ? 1 : -1;
-                        train.SetRail(rails[right ? 1 : 0, train.GetRail().GetIndex() + factor]);
+                        int factor = forward ? 1 : -1;
+                        train.SetRail(rails[forward ? 1 : 0, train.GetRail().GetIndex() + factor]);
                     }
                 }
                 else if (train.GetRail().GetStation().ReadytoDepart(train))
