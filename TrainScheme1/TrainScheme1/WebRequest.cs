@@ -9,7 +9,6 @@ namespace TrainScheme1
 {
     class WebRequest
     {
-        string payloadString;
         private static readonly HttpClient client = new HttpClient();
 
         string baseIP;
@@ -26,7 +25,7 @@ namespace TrainScheme1
             string checkByte = "**TByte*";
             int[] multiplyVal = { 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 };
 
-            payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
+            string payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
             string response = RequestAsync(payloadString).Result;
 
             bool TBFound = true;
@@ -68,18 +67,58 @@ namespace TrainScheme1
             return SendGetData(bufferUID, "-404", "-404");
         }
 
-        //public List<string> GetUserList()
-        //{
 
-        //   return;
-        //}
+        public List<string> GetUserList()
+        {
+            List<string> dataList = new List<string> { };
+            string bufferUid = "";
+            string bufferBal = "";
+            bool uidFound = false;
+
+            string payloadString = baseIP + "fetchUserList.php";
+            string response = RequestAsync(payloadString).Result;
+
+            for (int i = 0; i < response.Length; i++)
+            {
+                if (response[i] != '_')
+                {
+                    if (!uidFound)
+                    {
+                        bufferUid += response[i];
+                    }
+                    else
+                    {
+                        if (response[i] != ';')
+                        {
+                            bufferBal += response[i];
+                        }
+                        else
+                        {
+                            dataList.Add(bufferBal);
+                            uidFound = false;
+                            bufferBal = "";
+                        }
+                    }
+                }
+                else
+                {
+                    dataList.Add(bufferUid);
+                    uidFound = true;
+                    bufferUid = "";
+                }
+            }
+            return dataList;
+        }
+
+
 
 
         public async Task<string> RequestAsync(string bufferPayloadString)
         {
-            string response = client.GetStringAsync(payloadString).Result;
+            string response = client.GetStringAsync(bufferPayloadString).Result;
             response = response.Trim();
             return response;
         }
+
     }
 }
