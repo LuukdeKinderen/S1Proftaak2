@@ -18,7 +18,7 @@
 
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(250000);
 
   FastLED.addLeds<WS2812, stripPin0, GRB>(leds[0], numberLed); 
   FastLED.addLeds<WS2812, stripPin1, GRB>(leds[1], numberLed); 
@@ -158,7 +158,8 @@ void loop() {
         FastLED.show();  
 
         if(conformationBtnPressed()){
-          String command = "FxFF 3 "+String(mappedPotMeter)+"~";
+          String UID = "UIDHIER";
+          String command = "FxFF 3 "+ UID +","+ String(mappedPotMeter)+"~";
           Serial.print(command);
           CleanUp();
           selecting = false;    

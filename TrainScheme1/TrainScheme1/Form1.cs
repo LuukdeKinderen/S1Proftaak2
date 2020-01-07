@@ -12,14 +12,16 @@ using System.IO.Ports;
 
 
 
+
 namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
-        SerialPort SerialPort1 = new SerialPort("COM14", 115200);
-        Timer timer = new Timer();
-        TrainBehaviour trainBehaviour = new TrainBehaviour();
-        bool onHold = false;
+        private SerialPort SerialPort1 = new SerialPort("COM14", 250000);
+        private Timer timer = new Timer();
+        private TrainBehaviour trainBehaviour = new TrainBehaviour();
+        private UserManager userManager = new UserManager();
+        private bool onHold = false;
 
         public Form1()
         {
@@ -42,7 +44,7 @@ namespace TrainScheme1
             }
 
 
-            timer.Interval = 500;
+            timer.Interval = 200;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -58,7 +60,7 @@ namespace TrainScheme1
                 DrawRails(trainBehaviour.GetRails());
                 string s = GenerateHexString(trainBehaviour.GetRails());
                 SerialPort1.Write(s);
-                Debug.WriteLine(s);
+                //Debug.WriteLine(s);
             }
         }
 
@@ -90,7 +92,12 @@ namespace TrainScheme1
                             onHold = true;
                             break;
                         default:
-                            Debug.WriteLine("station: " + command);
+                            int stationIndex;
+                            string UID = command.Split(',')[0];
+                            if(int.TryParse(command.Split(',')[1], out stationIndex)){
+
+                                Debug.WriteLine(userManager.GetUser(UID).checken(trainBehaviour.GetStation(stationIndex)));
+                            }
                             onHold = false;
                             break;
                     }
@@ -200,12 +207,10 @@ namespace TrainScheme1
         {
 
         }
-        int henkie = 0;
 
         private void button2_Click(object sender, EventArgs e)
         {
-            henkie++;
-            label1.Text = henkie.ToString();
+            
         }
     }
 }

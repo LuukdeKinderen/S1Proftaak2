@@ -32,12 +32,12 @@ namespace TrainScheme1
 
 
 
-            stations.Add(new Station("CL", true, 0, rails));
-            stations.Add(new Station("KF", false, 20, rails));
-            stations.Add(new Station("FR", true, 46, rails));
-            stations.Add(new Station("BH", false, 70, rails));
-            stations.Add(new Station("BR", false, 90, rails));
-            stations.Add(new Station("JP", true, 116, rails));
+            stations.Add(new Station("Christopher laan", true, 0, rails));
+            stations.Add(new Station("Knap Ford", false, 20, rails));
+            stations.Add(new Station("Frow Tastic", true, 46, rails));
+            stations.Add(new Station("Burgemeester v. Hoofdstraat", false, 70, rails));
+            stations.Add(new Station("Blauwe Reiger", false, 90, rails));
+            stations.Add(new Station("Jethoe Plein", true, 116, rails));
 
 
 
@@ -109,6 +109,11 @@ namespace TrainScheme1
         public Rail[,] GetRails()
         {
             return rails;
+        }
+
+        public Station GetStation(int i)
+        {
+            return stations[i];
         }
 
         public string StationStr()
