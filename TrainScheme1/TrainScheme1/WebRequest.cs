@@ -14,10 +14,9 @@ namespace TrainScheme1
         string baseIP;
         string file;
 
-        public WebRequest(string bufferBaseIP, string bufferFile)
+        public WebRequest(string bufferBaseIP)
         {
             baseIP = bufferBaseIP + "/"; // 192.168.50.6/
-            file = bufferFile + "?"; // fetch.php?
         }
 
         public double[] SendGetData(string UID, string bal, string IO)
@@ -25,6 +24,7 @@ namespace TrainScheme1
             string checkByte = "**TByte*";
             int[] multiplyVal = { 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 };
 
+            file = "fetch.php?";
             string payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
             string response = RequestAsync(payloadString).Result;
 
@@ -110,6 +110,12 @@ namespace TrainScheme1
             return dataList;
         }
 
+
+        public void NewUser(string bufferUID, string bufferBal, string bufferIO)
+        {
+            string payloadString = baseIP + $"NewEntry.php?uid={bufferUID}&bal={bufferBal}&in={bufferIO}";
+            string response = RequestAsync(payloadString).Result;
+        }
 
 
 
