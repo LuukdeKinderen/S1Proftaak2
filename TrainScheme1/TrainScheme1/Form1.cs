@@ -10,17 +10,22 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO.Ports;
 
+
+
 namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
-        //SerialPort SerialPort1 = new SerialPort("COM12", 9600);
+        SerialPort SerialPort1 = new SerialPort("COM14", 115200);
         Timer timer = new Timer();
         TrainBehaviour trainBehaviour = new TrainBehaviour();
+        bool onHold = false;
 
         public Form1()
         {
-            //SerialPort1.Open();
+            SerialPort1.Open();
+
+            SerialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
             InitializeComponent();
 
             for (int i = 0; i < 240; i++)
@@ -28,17 +33,16 @@ namespace TrainScheme1
 
                 PictureBox p = new PictureBox
                 {
-                    BackColor = System.Drawing.SystemColors.ActiveBorder,
+                    BackColor = SystemColors.ActiveBorder,
                     Name = "pictureBox1",
-                    Size = new System.Drawing.Size(9, 9)
+                    Size = new Size(9, 9)
                 };
 
                 tableLayoutPanel1.Controls.Add(p);
             }
 
 
-
-            timer.Interval = 300;
+            timer.Interval = 500;
             timer.Tick += CycleTick;
             timer.Start();
 
@@ -46,21 +50,68 @@ namespace TrainScheme1
 
 
 
-
         void CycleTick(object source, EventArgs e)
         {
-            trainBehaviour.MoveTrains();
-            DrawRails(trainBehaviour.GetRails());
-
-           // SerialPort1.Write(GenerateHexString(trainBehaviour.GetRails()));
-            Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
+            if (!onHold)
+            {
+                trainBehaviour.MoveTrains();
+                DrawRails(trainBehaviour.GetRails());
+                string s = GenerateHexString(trainBehaviour.GetRails());
+                SerialPort1.Write(s);
+                Debug.WriteLine(s);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Pausebutton(object sender, EventArgs e)
         {
             timer.Enabled = !timer.Enabled;
         }
 
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            SerialPort sp = (SerialPort)sender;
+
+            sp.NewLine = "~";
+            string message = sp.ReadLine();
+            char protocol = message[5];
+            string command = message.Substring(7);
+
+
+
+            switch (protocol)
+            {
+                case '3':
+                    // TrainSelect Stuff
+                    switch (command)
+                    {
+                        case "GetStations":
+                            SerialPort1.Write("FxFF 3 " + trainBehaviour.StationStr() + "~");
+                            onHold = true;
+                            break;
+                        default:
+                            Debug.WriteLine("station: " + command);
+                            onHold = false;
+                            break;
+                    }
+                    break;
+
+
+                case '1':
+                    // NFC Stuff
+                    break;
+
+
+                case '2':
+                    // KEYPAD Stuff
+                    break;
+
+
+                default:
+                    break;
+            }
+
+        }
 
         private string GenerateHexString(Rail[,] rails)
         {
@@ -148,6 +199,13 @@ namespace TrainScheme1
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        int henkie = 0;
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            henkie++;
+            label1.Text = henkie.ToString();
         }
     }
 }

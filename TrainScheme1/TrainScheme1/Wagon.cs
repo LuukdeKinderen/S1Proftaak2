@@ -73,15 +73,19 @@ namespace TrainScheme1
         public Color GetColor()
         {
             Color c = train.GetColor();
-            switch (croudLevel)
-            {
-                case CroudLevel.L:
-                    return ChangeColorBrightness(c, -.5f);
-                case CroudLevel.M:
-                    return ChangeColorBrightness(c, -.3f);
-                case CroudLevel.H:
-                    return ChangeColorBrightness(c, -.1f);
-            }
+
+            //Uncomment to see croud level
+
+            //switch (croudLevel)
+            //{
+            //    case CroudLevel.L:
+            //        return ChangeColorBrightness(c, -.5f);
+            //    case CroudLevel.M:
+            //        return ChangeColorBrightness(c, -.3f);
+            //    case CroudLevel.H:
+            //        return ChangeColorBrightness(c, -.1f);
+            //}
+
             return c;
         }
 
