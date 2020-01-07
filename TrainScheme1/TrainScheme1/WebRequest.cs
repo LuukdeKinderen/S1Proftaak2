@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+
+namespace TrainScheme1
+{
+    class WebRequest
+    {
+        string payloadString;
+        private static readonly HttpClient client = new HttpClient();
+
+        string baseIP;
+        string file;
+
+        public WebRequest(string bufferBaseIP, string bufferFile)
+        {
+            baseIP = bufferBaseIP + "/"; // 192.168.50.6/
+            file = bufferFile + "?"; // fetch.php?
+        }
+
+        public double[] SendGetData(string UID, string bal, string IO)
+        {
+            string checkByte = "**TByte*";
+            int[] multiplyVal = { 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 };
+
+            payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
+            string response = RequestAsync(payloadString).Result;
+
+            bool TBFound = true;
+            for (int i = 0; i < 8; i++)
+            {
+                if (response[i] != checkByte[i])
+                {
+                    TBFound = false;
+                }
+            }
+
+            if (!TBFound)
+            {
+                return null;
+            }
+
+            int balLen = response[10] - '0';
+            char[] balString = { '0', '0', '0', '0', '0', '0', '0', '0', '0' };
+
+            for (int i = 0; i < balLen; i++)
+            {
+                balString[(9 - balLen) + i] = response[i + 12];
+            }
+
+            double balVal = 0;
+            for (int i = 0; i < 9; i++)
+            {
+                balVal = balVal + ((balString[i] - '0') * multiplyVal[i]);
+            }
+
+            double IOVal = response[response.Length - 1] - '0';
+            double[] returnValue = { balVal, IOVal };
+            return returnValue;
+        }
+
+
+        public double[] GetData(string bufferUID)
+        {
+            return SendGetData(bufferUID, "-404", "-404");
+        }
+
+        //public List<string> GetUserList()
+        //{
+
+        //   return;
+        //}
+
+
+        public async Task<string> RequestAsync(string bufferPayloadString)
+        {
+            string response = client.GetStringAsync(payloadString).Result;
+            response = response.Trim();
+            return response;
+        }
+    }
+}
