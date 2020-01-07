@@ -14,10 +14,15 @@ namespace TrainScheme1
         private Station checkIn = null;
         private Station checkUit = null;
 
+        public User(string UID, int bal)
+        {
+            this.balans = bal;
+            this.UID = UID;
+        }
 
         public User(string UID)
         {
-            balans = 20;
+            this.balans = 20;
             this.UID = UID;
         }
 

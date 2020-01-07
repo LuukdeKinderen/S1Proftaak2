@@ -22,6 +22,7 @@ namespace TrainScheme1
         private TrainBehaviour trainBehaviour = new TrainBehaviour();
         private UserManager userManager = new UserManager();
         private bool onHold = false;
+        private WebRequest request = new WebRequest("http://192.168.50.6");
 
         public Form1()
         {
