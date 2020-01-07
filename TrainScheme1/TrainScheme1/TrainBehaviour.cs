@@ -111,6 +111,15 @@ namespace TrainScheme1
             return rails;
         }
 
+        public string StationStr()
+        {
+            string stationsStr = stations.Count.ToString();
+            for (int i = 0; i < stations.Count; i++)
+            {
+                stationsStr += stations[i].GetRailIndex().ToString("000");
+            }
+            return stationsStr;
+        }
 
     }
 }

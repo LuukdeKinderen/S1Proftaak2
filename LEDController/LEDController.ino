@@ -5,6 +5,8 @@
   #define stripPin1 8
   #define numberLed 120
   #define numberStrip 2
+  #define conformationBtn 10
+  #define pot A0
   
   CRGB leds[numberStrip][numberLed];
 
@@ -16,10 +18,13 @@
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   FastLED.addLeds<WS2812, stripPin0, GRB>(leds[0], numberLed); 
   FastLED.addLeds<WS2812, stripPin1, GRB>(leds[1], numberLed); 
+
+  pinMode(conformationBtn, INPUT);
+  pinMode(pot, INPUT);
 
   for (int i = 0; i < 120; i++) {
       leds[0][i] = CRGB(0, 0, 0);
@@ -32,17 +37,24 @@ void setup() {
   }
 }
 
+bool selecting= false;
 void loop() {
+
+  //Replace button interreupt with NFC
+  if(conformationBtnPressed() && !selecting){
+    selecting = true;
+    Serial.print("FxFF 3 GetStations~");
+  }
+
+
+  
   int readBit = 0;
   bool done;
   if (Serial.available()) {
     
     Serial.readBytesUntil('~', bufferInput, 1500); 
 
-    for (int i = 0; i < 120; i++) {
-      leds[0][i] = CRGB(0,0,0); 
-      leds[1][i] = CRGB(0,0,0);
-    }
+
 
 
     while (true) {
@@ -68,6 +80,10 @@ void loop() {
 
     switch(adress) {
       case 9:
+          for (int i = 0; i < 120; i++) {
+      leds[0][i] = CRGB(0,0,0); 
+      leds[1][i] = CRGB(0,0,0);
+    }
         while (true) {
           byte readByte[3];
           byte byteRGB[3];
@@ -109,16 +125,51 @@ void loop() {
 
       
       break;
+      case 3:
 
+      int stationsCount = bufferInput[readBit] - '0';
+      readBit++;
+      
+      byte stations[stationsCount][4];
 
+      for(int i = 0; i<stationsCount; i++){
+        byte readByte[3];
+        for(int ri = 0; ri<3; ri++){
+          readByte[ri] = bufferInput[readBit] - '0';
+          readBit++;
+        }
+        byte startind = readByte[0] * 100 + readByte[1] * 10 + readByte[2];
+        for(int ri = 0; ri <4; ri++){
+          stations[i][ri] = startind+ri;
+        }
+      }
+      
+      while(selecting){
+     
+        int mappedPotMeter = map(analogRead(pot), 0, 1023, 0, stationsCount);
+            for (int i = 0; i < 120; i++) {
+      leds[0][i] = CRGB(0,0,0); 
+      leds[1][i] = CRGB(0,0,0);
+    }FastLED.show();
+            for(int i = 0; i<4; i++){
+          leds[0][stations[mappedPotMeter][i]] = CRGB(0, 255, 0);
+          leds[1][stations[mappedPotMeter][i]] = CRGB(0, 255, 0);
+        }
+        FastLED.show();  
+
+        if(conformationBtnPressed()){
+          String command = "FxFF 3 "+String(mappedPotMeter)+"~";
+          Serial.print(command);
+          CleanUp();
+          selecting = false;    
+        }
+      }
+      break;
       
     }
-
-
-
-    
   }
 }
+
 
 
 void CleanUp() {
