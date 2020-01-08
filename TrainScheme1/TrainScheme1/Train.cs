@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TrainScheme1
 {
@@ -14,26 +15,46 @@ namespace TrainScheme1
         public string name;
         private bool intercity;
         private Rail rail;
-        private string HEX;
+        private Color color;
 
         private Station[] route;
         private int nextDestination = 0;
         private bool inStation;
 
-        /// <summary>
-        /// Constructs a new Train object
-        /// </summary>
-        /// <param name="name">name of the new Train</param>
-        /// <param name="intercity">When true => new Train is intercity</param>
-        /// <param name="route">Array of stations to cover on full train cycle, please include return</param>
-        /// <param name="rail">Rail to start on</param>
-        public Train(string name,string HEX, bool intercity, Station[] route,Rail rail)
+        private Wagon[] wagons;
+
+        private Random r = new Random();
+
+/// <summary>
+/// Creates a train object
+/// </summary>
+/// <param name="name"></param>
+/// <param name="color"></param>
+/// <param name="intercity"></param>
+/// <param name="route"></param>
+        public Train(string name, Color color, bool intercity, Station[] route)
         {
             this.name = name;
-            this.HEX = HEX;
+            this.color = color;
             this.intercity = intercity;
             this.route = route;
-            this.rail = rail;
+            rail = route[0].GetRail();
+
+            if (intercity)
+            {
+                wagons = new Wagon[3];
+            }
+            else
+            {
+                wagons = new Wagon[2];
+            }
+            
+
+            for (int w = 0; w < wagons.Length; w++)
+            {
+                wagons[w] = new Wagon(rail, this);
+            }
+
         }
 
         /// <summary>
@@ -43,8 +64,10 @@ namespace TrainScheme1
         public void SetRail(Rail rail)
         {
             this.rail.RemoveTrain(this);
+            this.rail.AddWagon(wagons, wagons[0]);
             this.rail = rail;
             this.rail.AddTrain(this);
+
         }
 
         /// <summary>
@@ -63,11 +86,37 @@ namespace TrainScheme1
         {
             return route[nextDestination].Arrived(this);
         }
-        
 
-        public bool NeedsToGoRight()
+        /// <summary>
+        /// this train has arrived on a station
+        /// </summary>
+        public void Arrive()
         {
-            return rail.GetIndex() < route[nextDestination].GetPosition();
+            inStation = true;
+            SetNextDestination();
+            rail.GetStation().AddTrain(this);
+        }
+
+        /// <summary>
+        /// this train leaves the station
+        /// </summary>
+        public void Depart()
+        {
+
+            for (int w = 0; w < wagons.Length; w++)
+            {
+                wagons[w].SetRandomCroudLevel(r.Next(0, 3));
+            }
+            inStation = false;
+        }
+
+        /// <summary>
+        /// Checks if train needs to go forward to reach the next destination on his route
+        /// </summary>
+        /// <returns></returns>
+        public bool NeedsToGoForward()
+        {
+            return rail.GetIndex() < route[nextDestination].GetRailIndex();
         }
 
         /// <summary>
@@ -88,36 +137,27 @@ namespace TrainScheme1
             return inStation;
         }
 
+        /// <summary>
+        /// retruns true if this train is an Intercity
+        /// </summary>
+        /// <returns></returns>
         public bool Intercity()
         {
             return intercity;
         }
 
-        /// <summary>
-        /// this train leaves the station
-        /// </summary>
-        public void Depart()
+        public Color GetColor()
         {
-            inStation = false;
+            return color;
         }
 
         /// <summary>
-        /// this train has arrived on a station
-        /// </summary>
-        public void Arrive()
-        {
-            inStation = true;
-            SetNextDestination();
-            rail.GetStation().AddTrain(this);
-        }
-
-        /// <summary>
-        /// retruns HEX value of this trian
+        /// Gets all wagons of this train
         /// </summary>
         /// <returns></returns>
-        public string GetHEX()
+        public Wagon[] GetWagons()
         {
-            return HEX;
+            return wagons;
         }
     }
 }

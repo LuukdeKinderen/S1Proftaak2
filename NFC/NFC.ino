@@ -83,10 +83,12 @@ void loop() {
       if (keyString == "") {
       
       String payloadString = "FxFF 1 ";
+      String bufferPayload = "";
       for (int i; i < 4; i++) {
-        payloadString += nuidPICC[i];
+        bufferPayload += nuidPICC[i];
       }
-      payloadString += " FxF0";
+      payloadString += ConvertUID(bufferPayload);
+      payloadString += "~";
       Serial.println(payloadString);
        
     } else {
@@ -101,7 +103,7 @@ void loop() {
         payloadString += nuidPICC[i];
       }
       
-      payloadString += " FxF0";
+      payloadString += "~";
       Serial.println(payloadString);
 
        keyString = "";  
@@ -154,4 +156,17 @@ void printHex(byte *buffer, byte bufferSize) {
 
 void RunCodeIfRead() {
   
+}
+
+String ConvertUID(String bufferUID) {
+  bool found = false;
+  String outputUID = "";
+  for (int i = 0; i < bufferUID.length(); i++) {
+    if (bufferUID[i] != '0') {
+      found = true;
+    }
+    if (found) {
+      outputUID += bufferUID[i];
+    }
+  }
 }

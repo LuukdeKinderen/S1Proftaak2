@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TrainScheme1
 {
+
     class TrainBehaviour
     {
         //Space to leave clear in front of train
@@ -29,19 +31,20 @@ namespace TrainScheme1
             }
 
 
-            stations.Add(new Station("CL", true, new Rail[,] { { rails[0, 0], rails[0, 1], rails[0, 2], rails[0, 3] }, { rails[1, 3], rails[1, 2], rails[1, 1], rails[1, 0] } }));
-            stations.Add(new Station("KF", false, new Rail[,] { { rails[0, 20], rails[0, 21], rails[0, 22], rails[0, 23] }, { rails[1, 23], rails[1, 22], rails[1, 21], rails[1, 20] } }));
-            stations.Add(new Station("FR", true, new Rail[,] { { rails[0, 50], rails[0, 51], rails[0, 52], rails[0, 53] }, { rails[1, 53], rails[1, 52], rails[1, 51], rails[1, 50] } }));
-            stations.Add(new Station("BH", false, new Rail[,] { { rails[0, 70], rails[0, 71], rails[0, 72], rails[0, 73] }, { rails[1, 73], rails[1, 72], rails[1, 71], rails[1, 70] } }));
-            stations.Add(new Station("BR", false, new Rail[,] { { rails[0, 90], rails[0, 91], rails[0, 92], rails[0, 93] }, { rails[1, 93], rails[1, 92], rails[1, 91], rails[1, 90] } }));
-            stations.Add(new Station("JP", true, new Rail[,] { { rails[0, 116], rails[0, 117], rails[0, 118], rails[0, 119] }, { rails[1, 119], rails[1, 118], rails[1, 117], rails[1, 116] } }));
+
+            stations.Add(new Station("Christopher laan", true, 0, rails));
+            stations.Add(new Station("Knap Ford", false, 20, rails));
+            stations.Add(new Station("Frow Tastic", true, 46, rails));
+            stations.Add(new Station("Burgemeester v. Hoofdstraat", false, 70, rails));
+            stations.Add(new Station("Blauwe Reiger", false, 90, rails));
+            stations.Add(new Station("Jethoe Plein", true, 116, rails));
 
 
 
-            trains.Add(new Train("I1", "ff9500", true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }, rails[0, 0]));
-            trains.Add(new Train("I2", "fff200", true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }, rails[1, 116]));
-            trains.Add(new Train("S1", "0004ff", false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }, rails[0, 0]));
-            trains.Add(new Train("S2", "00d5ff", false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }, rails[0, 50]));
+            trains.Add(new Train("I1", Color.FromArgb(255, 0, 0), true, new Station[] { stations[0], stations[2], stations[5], stations[2], stations[0] }));
+            trains.Add(new Train("I2", Color.FromArgb(255,255, 0), true, new Station[] { stations[5], stations[2], stations[0], stations[2], stations[5] }));
+            trains.Add(new Train("S1", Color.FromArgb(0, 255, 0), false, new Station[] { stations[0], stations[1], stations[2], stations[1], stations[0] }));
+            trains.Add(new Train("S2", Color.FromArgb(0, 0, 255), false, new Station[] { stations[2], stations[3], stations[4], stations[5], stations[4], stations[3], stations[2] }));
         }
 
         public void MoveTrains()
@@ -49,11 +52,11 @@ namespace TrainScheme1
             for (int t = 0; t < trains.Count; t++)
             {
                 Train train = trains[t];
-                bool right = train.NeedsToGoRight();
+                bool forward = train.NeedsToGoForward();
                 int trainPos = train.GetRail().GetIndex();
                 bool clear = true;
 
-                if (right)
+                if (forward)
                 {
                     for (int i = trainPos + 1; i < trainPos + clearSpace; i++)
                     {
@@ -91,8 +94,8 @@ namespace TrainScheme1
                 {
                     if (clear)
                     {
-                        int factor = right ? 1 : -1;
-                        train.SetRail(rails[right ? 1 : 0, train.GetRail().GetIndex() + factor]);
+                        int factor = forward ? 1 : -1;
+                        train.SetRail(rails[forward ? 1 : 0, train.GetRail().GetIndex() + factor]);
                     }
                 }
                 else if (train.GetRail().GetStation().ReadytoDepart(train))
@@ -108,6 +111,20 @@ namespace TrainScheme1
             return rails;
         }
 
+        public Station GetStation(int i)
+        {
+            return stations[i];
+        }
+
+        public string StationStr()
+        {
+            string stationsStr = stations.Count.ToString();
+            for (int i = 0; i < stations.Count; i++)
+            {
+                stationsStr += stations[i].GetRailIndex().ToString("000");
+            }
+            return stationsStr;
+        }
 
     }
 }

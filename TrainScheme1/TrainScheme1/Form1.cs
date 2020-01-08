@@ -8,90 +8,118 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO.Ports;
+using System.Timers;
+
+
+
 
 namespace TrainScheme1
 {
     public partial class Form1 : Form
     {
-        Timer timer = new Timer();
-        TrainBehaviour trainBehaviour = new TrainBehaviour();
-        string[] prevHex = new string[240];
+        private SerialPort SerialPort1 = new SerialPort("COM14", 250000);
+        private System.Timers.Timer timer = new System.Timers.Timer();
+        private TrainBehaviour trainBehaviour = new TrainBehaviour();
+        private UserManager userManager = new UserManager();
+        private bool onHold = false;
+        private WebRequest request = new WebRequest("http://192.168.50.6");
 
         public Form1()
         {
+            SerialPort1.Open();
+
+            SerialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
             InitializeComponent();
-
-
-            //Random r = new Random();
-            //string lol = "FxFF 9 ";
-
-            //for (int i = 0; i < 240; i++)
-            //{
-            //    int rr = r.Next(0, 5);
-            //    switch (i)
-            //    {
-            //        case 0:
-            //            lol += "ffffff";
-            //            break;
-            //        case 69:
-            //            lol += "f036a6";
-            //            break;
-            //        case 112:
-            //            lol += "123456";
-            //            break;
-            //        case 85:
-            //            lol += "abcdef";
-            //            break;
-            //         default:
-            //            lol += "000000";
-            //            break;
-
-            //    }
-
-
-            //}
-
-            //lol += " FxF0";
-
-            //Debug.WriteLine(lol);
-
-
-
 
             for (int i = 0; i < 240; i++)
             {
 
                 PictureBox p = new PictureBox
                 {
-                    BackColor = System.Drawing.SystemColors.ActiveBorder,
-                    Location = new System.Drawing.Point(708, 3),
+                    BackColor = SystemColors.ActiveBorder,
                     Name = "pictureBox1",
-                    Size = new System.Drawing.Size(9, 25)
+                    Size = new Size(9, 9)
                 };
 
                 tableLayoutPanel1.Controls.Add(p);
             }
 
-            timer.Interval = 1000;
-            timer.Tick += CycleTick;
+
+            timer.Interval = 500;
+            timer.Elapsed += CycleTick;
             timer.Start();
 
         }
 
 
 
-
         void CycleTick(object source, EventArgs e)
         {
-            trainBehaviour.MoveTrains();
-
-            DrawRails(trainBehaviour.GetRails());
-            Debug.WriteLine(GenerateHexString(trainBehaviour.GetRails()));
+            if (!onHold)
+            {
+                trainBehaviour.MoveTrains();
+                DrawRails(trainBehaviour.GetRails());
+                string s = GenerateHexString(trainBehaviour.GetRails());
+                SerialPort1.Write(s);
+                //Debug.WriteLine(s);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Pausebutton(object sender, EventArgs e)
         {
             timer.Enabled = !timer.Enabled;
+        }
+
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            SerialPort sp = (SerialPort)sender;
+
+            sp.NewLine = "~";
+            string message = sp.ReadLine();
+            char protocol = message[5];
+            string command = message.Substring(7);
+
+
+
+            switch (protocol)
+            {
+                case '3':
+                    // TrainSelect Stuff
+                    switch (command)
+                    {
+                        case "GetStations":
+                            SerialPort1.Write("FxFF 3 " + trainBehaviour.StationStr() + "~");
+                            onHold = true;
+                            break;
+                        default:
+                            int stationIndex;
+                            string UID = command.Split(',')[0];
+                            if(int.TryParse(command.Split(',')[1], out stationIndex)){
+
+                                Debug.WriteLine(userManager.GetUser(UID).checken(trainBehaviour.GetStation(stationIndex)));
+                            }
+                            onHold = false;
+                            break;
+                    }
+                    break;
+
+
+                case '1':
+                    // NFC Stuff
+                    break;
+
+
+                case '2':
+                    // KEYPAD Stuff
+                    break;
+
+
+                default:
+                    break;
+            }
+
         }
 
         private string GenerateHexString(Rail[,] rails)
@@ -106,38 +134,29 @@ namespace TrainScheme1
             }
 
             string longString = "FxFF 9 ";
-            string[] hex = new string[240];
-            for (int i = 0; i < hex.Length; i++)
-            {
-                hex[i] = "000000";
-            }
+
 
 
             for (int i = 0; i < allRails.Length; i++)
             {
                 if (allRails[i].GetTrains().Count > 0)
                 {
-                    hex[i] = allRails[i].GetTrains()[0].GetHEX();
+                    Color c = allRails[i].GetTrains()[0].GetColor();
+                    longString += i.ToString("000") + c.R.ToString("000") + c.G.ToString("000") + c.B.ToString("000");
+                }
+                else if (allRails[i].GetWagon() != null)
+                {
+                    Color c = allRails[i].GetWagon().GetColor();
+                    longString += i.ToString("000") + c.R.ToString("000") + c.G.ToString("000") + c.B.ToString("000");
                 }
             }
 
-            for (int i = 0; i < hex.Length; i++)
-            {
-                if (prevHex[i] != hex[i])
-                {
-                    longString += i.ToString("000")+hex[i];
-                }
-                else
-                {
-                    //longString += "zzzzzz";
-                }
-            }
 
             longString += "~";
-            prevHex = hex;
             return longString;
 
         }
+
 
         private void DrawRails(Rail[,] rails)
         {
@@ -149,18 +168,26 @@ namespace TrainScheme1
                     if (rails[ri, r].GetTrains().Count > 0)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
-                        p.BackColor = System.Drawing.ColorTranslator.FromHtml("#" + rails[ri, r].GetTrains()[0].GetHEX());
+                        Train train = rails[ri, r].GetTrains()[0];
+                        p.BackColor = train.GetColor();
+                    }
+
+                    else if (rails[ri, r].GetWagon() != null)
+                    {
+                        PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
+                        Wagon wagon = rails[ri, r].GetWagon();
+                        p.BackColor = wagon.GetColor();
                     }
                     else if (rails[ri, r].GetStation() != null)
                     {
                         PictureBox p = (PictureBox)tableLayoutPanel1.GetControlFromPosition(r, ri);
                         if (rails[ri, r].GetStation().CentralStation())
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#22ff00");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#4a4a4a");
                         }
                         else
                         {
-                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#118000");
+                            p.BackColor = System.Drawing.ColorTranslator.FromHtml("#878787");
                         }
 
                     }
@@ -178,5 +205,14 @@ namespace TrainScheme1
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

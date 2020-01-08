@@ -10,25 +10,20 @@ namespace TrainScheme1
     {
 
         private int index;
-        private int right;
+        private int forward;
         private Station station;
         private List<Train> trains = new List<Train>();
+        private List<Wagon> wagons = new List<Wagon>();
 
         /// <summary>
         /// Constructs a rail object
         /// </summary>
         /// <param name="index">The index of the Rail object {0-120}</param>
-        public Rail(int right, int index)
+        public Rail(int forward, int index)
         {
             this.index = index;
-            this.right = right;
+            this.forward = forward;
         }
-
-        public Rail()
-        {
-        }
-
-
 
         /// <summary>
         /// Adds a station object to this Rail and sets rail on station
@@ -59,7 +54,7 @@ namespace TrainScheme1
 
         public int GetRight()
         {
-            return right;
+            return forward;
         }
 
         /// <summary>
@@ -69,19 +64,10 @@ namespace TrainScheme1
         public bool IsClear()
         {
             bool clear = true;
-            if(trains.Count > 0)
+            if (trains.Count > 0)
             {
-                //for (int t = 0; t < trains.Count; t++)
-                //{
-                //    //Als treinen in dezelfde richting rijden
-                //    if(trains[t].GoingRight() == train.GoingRight())
-                //    {
-                        clear = false;
-                //    }
-                //}
-                
-
-                if(station != null)
+                clear = false;
+                if (station != null)
                 {
                     if (station.CentralStation())
                     {
@@ -89,7 +75,18 @@ namespace TrainScheme1
                     }
                 }
             }
-
+            if (wagons.Count > 0)
+            {
+                clear = false;
+                Rail rail = wagons[0].Gettrain().GetRail();
+                if (rail.GetStation() != null)
+                {
+                    if (rail.GetStation().CentralStation())
+                    {
+                        clear = true;
+                    }
+                }
+            }
             return clear;
         }
 
@@ -100,6 +97,42 @@ namespace TrainScheme1
         public void AddTrain(Train train)
         {
             this.trains.Add(train);
+        }
+
+        public void AddWagon(Wagon[] wagons, Wagon wagon)
+        {
+            int index = Array.IndexOf(wagons, wagon);
+            Rail oldRail = wagon.GetRail();
+
+            wagon.SetRail(this);
+            this.wagons.Add(wagon);
+
+            index++;
+            if (index != wagons.Length)
+            {
+                oldRail.AddWagon(wagons, wagons[index]);
+            }
+
+            oldRail.RemoveWagon(wagons[index - 1]);
+
+        }
+
+        private void RemoveWagon(Wagon wagon)
+        {
+            wagons.Remove(wagon);
+        }
+
+        public Wagon GetWagon()
+        {
+            if (wagons.Count > 0)
+            {
+                return wagons[0];
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         /// <summary>
@@ -119,5 +152,7 @@ namespace TrainScheme1
         {
             return trains;
         }
+
+
     }
 }

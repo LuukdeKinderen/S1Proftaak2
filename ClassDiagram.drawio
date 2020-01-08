@@ -1,0 +1,125 @@
+<mxfile host="www.draw.io" modified="2019-12-11T10:47:25.893Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36" etag="a6Ms6UhJoYlu_io7dyAE" version="12.3.9" type="github" pages="1">
+  <diagram name="Page-1" id="9f46799a-70d6-7492-0946-bef42562c5a5">
+    <mxGraphModel dx="1278" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="78961159f06e98e8-17" value="Rail" style="swimlane;html=1;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="90" y="83" width="230" height="424" as="geometry">
+            <mxRectangle x="90" y="83" width="60" height="26" as="alternateBounds"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="78961159f06e98e8-21" value="- index: int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="26" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-39" value="- forward: int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="52" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-40" value="- station: Station" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="78" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-41" value="- trains: List&amp;lt;Train&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="104" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-42" value="- wagons: List&amp;lt;Wagon&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="130" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="78961159f06e98e8-19" value="" style="line;html=1;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="156" width="230" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="78961159f06e98e8-20" value="+ Rail(forward : int, index : int): Rail" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="164" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-49" value="+ AddStation(station: Station): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="190" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-50" value="+ GetStation(): Station" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="216" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-52" value="+ IsClear(): bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="242" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-54" value="+ AddTrain(train : Train): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="268" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-55" value="+ AddWagon(wagon: Wagon): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="294" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-56" value="+ RemoveWagon(wagon: Wagon): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="320" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-57" value="+ GetWagon(): Wagon" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="346" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-58" value="+ RemoveTrain(train : Train): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="372" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-59" value="+ GetTrains(): List&amp;lt;Train&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="78961159f06e98e8-17" vertex="1">
+          <mxGeometry y="398" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-61" value="Rail" style="swimlane;html=1;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="400" y="83" width="230" height="502" as="geometry">
+            <mxRectangle x="90" y="83" width="60" height="26" as="alternateBounds"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-62" value="- name: string" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="26" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-63" value="- intercity: bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="52" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-64" value="- rail: Rail" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="78" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-79" value="- HEX: string" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="104" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-80" value="- route: Station[]" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="130" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-81" value="- nextDestination: int" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="156" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-82" value="- inStation: bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="182" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-83" value="- inStation: bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="208" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-67" value="" style="line;html=1;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="234" width="230" height="8" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-68" value="+ Rail(forward : int, index : int): Rail" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="242" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-69" value="+ AddStation(station: Station): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="268" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-70" value="+ GetStation(): Station" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="294" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-71" value="+ IsClear(): bool" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="320" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-72" value="+ AddTrain(train : Train): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="346" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-73" value="+ AddWagon(wagon: Wagon): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="372" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-74" value="+ RemoveWagon(wagon: Wagon): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="398" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-75" value="+ GetWagon(): Wagon" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="424" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-76" value="+ RemoveTrain(train : Train): void" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="450" width="230" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="4japjeftp3ALHUGcXtgO-77" value="+ GetTrains(): List&amp;lt;Train&amp;gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="4japjeftp3ALHUGcXtgO-61" vertex="1">
+          <mxGeometry y="476" width="230" height="26" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
