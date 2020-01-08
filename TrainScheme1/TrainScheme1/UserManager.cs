@@ -14,9 +14,11 @@ namespace TrainScheme1
         public UserManager()
         {
             List<string> uidList = request.GetUserList();
-            for (int i = 0; i < (uidList.Count / 2); i++)
-            {
+            //List<string> uidList = new List<string> { "9", "20", "8", "23", "10", "15", "20", "69", "87", "46", "11", "22", "41", "1", "2", "17"};
+
+            while(uidList.Count > 0) {
                 User _user = new User(uidList[0],Convert.ToInt32(uidList[1]));
+                
                 users.Add(_user);
 
                 uidList.RemoveAt(0);
@@ -35,9 +37,7 @@ namespace TrainScheme1
                 if (u.ToString() == UID)
                 {
                     _user = u;
-
                 }
-
             }
             if (_user == null)
             {
@@ -46,7 +46,6 @@ namespace TrainScheme1
                 request.NewUser(UID, "20", "0");
             }
             return _user;
-
         }
     }
 

@@ -19,13 +19,13 @@ namespace TrainScheme1
             baseIP = bufferBaseIP + "/"; // 192.168.50.6/
         }
 
-        public double[] SendGetData(string UID, string bal, string IO)
+        public double SendGetData(string UID, string bal)
         {
             string checkByte = "**TByte*";
             int[] multiplyVal = { 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 };
 
             file = "fetch.php?";
-            string payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
+            string payloadString = baseIP + file + $"uid={UID}&bal={bal}";
             string response = RequestAsync(payloadString).Result;
 
             bool TBFound = true;
@@ -39,7 +39,7 @@ namespace TrainScheme1
 
             if (!TBFound)
             {
-                return null;
+                return 0;
             }
 
             int balLen = response[10] - '0';
@@ -56,15 +56,13 @@ namespace TrainScheme1
                 balVal = balVal + ((balString[i] - '0') * multiplyVal[i]);
             }
 
-            double IOVal = response[response.Length - 1] - '0';
-            double[] returnValue = { balVal, IOVal };
-            return returnValue;
+            return balVal;
         }
 
 
-        public double[] GetData(string bufferUID)
+        public double GetData(string bufferUID)
         {
-            return SendGetData(bufferUID, "-404", "-404");
+            return SendGetData(bufferUID, "-404");
         }
 
 
@@ -113,7 +111,7 @@ namespace TrainScheme1
 
         public void NewUser(string bufferUID, string bufferBal, string bufferIO)
         {
-            string payloadString = baseIP + $"NewEntry.php?uid={bufferUID}&bal={bufferBal}&in={bufferIO}";
+            string payloadString = baseIP + $"newEntry.php?uid={bufferUID}&bal={bufferBal}";
             string response = RequestAsync(payloadString).Result;
         }
 
