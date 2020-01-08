@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO.Ports;
+using System.Timers;
 
 
 
@@ -18,7 +19,7 @@ namespace TrainScheme1
     public partial class Form1 : Form
     {
         private SerialPort SerialPort1 = new SerialPort("COM14", 250000);
-        private Timer timer = new Timer();
+        private System.Timers.Timer timer = new System.Timers.Timer();
         private TrainBehaviour trainBehaviour = new TrainBehaviour();
         private UserManager userManager = new UserManager();
         private bool onHold = false;
@@ -45,8 +46,8 @@ namespace TrainScheme1
             }
 
 
-            timer.Interval = 200;
-            timer.Tick += CycleTick;
+            timer.Interval = 500;
+            timer.Elapsed += CycleTick;
             timer.Start();
 
         }
