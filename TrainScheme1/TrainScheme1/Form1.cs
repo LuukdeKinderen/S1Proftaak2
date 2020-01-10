@@ -81,8 +81,6 @@ namespace TrainScheme1
             char protocol = message[5];
             string command = message.Substring(7);
 
-
-
             switch (protocol)
             {
                 case '3':
@@ -107,12 +105,21 @@ namespace TrainScheme1
 
 
                 case '1':
-                    // NFC Stuff
+                    Debug.WriteLine("testie: "+command);
                     break;
 
 
                 case '2':
-                    // KEYPAD Stuff
+                    string uid = command.Split(',')[0];
+                    double _addition = 0;
+                    if (double.TryParse(command.Split(',')[1], out _addition)){
+                        double _current = request.GetData(uid);
+                        double _new = _current + _addition;
+                        request.SendGetData(uid, _new.ToString(), "0");
+                        SerialPort1.Write("FxFF 4 " + request.GetData(uid).ToString() + "~");
+                        Debug.WriteLine(command);
+                    }
+                    onHold = false;
                     break;
 
 

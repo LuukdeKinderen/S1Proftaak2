@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TrainScheme1
 {
@@ -24,7 +25,7 @@ namespace TrainScheme1
 
         public User(string UID)
         {
-            this.balans = 20;
+            this.balans = 2000;
             this.UID = UID;
         }
 
@@ -32,8 +33,14 @@ namespace TrainScheme1
         {
             if (checkIn == null)
             {
-                InCheck(bufferStation);
-                return UID + " ingechecked op " + bufferStation.name;
+                if (InCheck(bufferStation))
+                {
+                    return UID + " ingechecked op " + bufferStation.name;
+                }
+                else
+                {
+                    return UID + " heeft te weinig saldo";
+                }
             }
             else
             {
@@ -42,17 +49,18 @@ namespace TrainScheme1
             }
         }
 
-        private void InCheck(Station bufferStationIn)
+        private bool InCheck(Station bufferStationIn)
         {
             this.balans = request.GetData(this.UID);
-
-            if (this.balans >= 15)
+            
+            if (this.balans >= 1500)
             {
                 checkIn = bufferStationIn;
+                return true;
             } else
             {
-                Console.WriteLine("Te weinig instaptarief");
                 checkIn = null;
+                return false;
             }
             
 
@@ -76,8 +84,8 @@ namespace TrainScheme1
                 verschil = checkuitIndex - checkinIndex;
             }
 
-            balans -= verschil * 0.1;
-            request.SendGetData(this.UID, this.balans.ToString());
+            balans -= verschil * 10;
+            request.SendGetData(this.UID, this.balans.ToString(),"0");
 
             checkIn = null;
             checkUit = null;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace TrainScheme1
 {
@@ -43,7 +44,7 @@ namespace TrainScheme1
             {
                 _user = new User(UID);
                 users.Add(_user);
-                request.NewUser(UID, "20", "0");
+                request.NewUser(UID, "2000", "0");
             }
             return _user;
         }

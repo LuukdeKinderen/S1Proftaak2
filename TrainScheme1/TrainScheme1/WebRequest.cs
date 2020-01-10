@@ -19,13 +19,13 @@ namespace TrainScheme1
             baseIP = bufferBaseIP + "/"; // 192.168.50.6/
         }
 
-        public double SendGetData(string UID, string bal)
+        public double SendGetData(string UID, string bal, string IO)
         {
             string checkByte = "**TByte*";
             int[] multiplyVal = { 100000000, 10000000, 1000000, 100000, 10000, 1000, 100, 10, 1 };
 
             file = "fetch.php?";
-            string payloadString = baseIP + file + $"uid={UID}&bal={bal}";
+            string payloadString = baseIP + file + $"uid={UID}&bal={bal}&in={IO}";
             string response = RequestAsync(payloadString).Result;
 
             bool TBFound = true;
@@ -62,7 +62,7 @@ namespace TrainScheme1
 
         public double GetData(string bufferUID)
         {
-            return SendGetData(bufferUID, "-404");
+            return SendGetData(bufferUID, "-404", "0");
         }
 
 
@@ -111,7 +111,7 @@ namespace TrainScheme1
 
         public void NewUser(string bufferUID, string bufferBal, string bufferIO)
         {
-            string payloadString = baseIP + $"newEntry.php?uid={bufferUID}&bal={bufferBal}";
+            string payloadString = baseIP + $"newEntry.php?uid={bufferUID}&bal={bufferBal}&in={bufferIO}";
             string response = RequestAsync(payloadString).Result;
         }
 
