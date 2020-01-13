@@ -1,0 +1,37 @@
+wat is het probleem?
+Iedereen kent wel iemand die nog nooit met de trein heeft gereist. 
+Vaak willen deze mensen graag met de trein reizen. 
+Maar omdat ze het gewoon nog nooit hebben gedaan, vinden ze het moeilijk om dit voor de eerste keer te doen.
+In- en Uitchecken, wat is dat? hoe werkt het? wat moet ik doen als het niet lukt?
+Op dat soort vragen willen wij graag antwoord geven!
+
+Oplossing:
+Wij hebben een installatie gemaakt die een instucteur kan gebruiken om een cursus te geven over het ov.
+de instucteur kan door gebruik van onze installatie antwoord geven op de hiervoorgenoemde vragen.
+
+Waar bestaat onze installatie uit?
+Onze installatie bestaat uit 4 belangrijke onderdelen:
+Een NFC scanner die het in- en uitchecken naboodst. Je kunt met een echte ovkaart of met bijvoorbeeld je sportpas inchecken. Zolang hij mij een NFC chip heeft. 
+Een handige app waar je de reisinformatie mee kunt zien.
+Een database die per pas/gebruiker het saldo registreerd. 
+ledstrips die het spoor simboliseren.
+
+ledstrip: 
+die bovenste 3 onderdelen spreken best wel voor zich maar die ledstrip is misschien nog wel verwarrend hoe wij deze inzetten. 
+Je moet het als volgt zien;
+ - een rijtje van ledjes is een trein. 
+ - geen licht betekend geen trein.
+ - een andere kleur betekend een ander trein.
+ - andere ledjes betekend een ander positie.
+
+Hoe ziet zo een cursus er dan uit?
+Een instructeur neemt de installatie mee en laat zien hoe deze werkt aan de cursisten(de mensen die het ov niet begrijpen).
+Daarna mogen zij zelf oefenen met de installatie en vragen stellen waar nodig. 
+Als de cursisten begrijpen hoe je de installatie gebruikt, weten ze hoe je in- en uitchecked, hoe je saldo opwaardeerd en hoe je een reis plant.
+Vervolgens legt de instucteur uit dat de installatie van ons vrij veel lijkt op het echte trein netwerk.
+Hij legt uit wat de verschillen zijn en waar je in het echt op moet letten. 
+Aan het einde van de cursus is er nog wat ruimte voor vragen van de cursisten.
+
+Wat willen wij berijken?
+Aan het einde van onze cursus hopen wij de drempel verlaagd te hebben om het ov voor het eerste te gebruiken.
+Daarnaast willen wij het gebruik van het ov simuleren om de wegen minder druk te maken en zo ook nog eens bij te dragen aan een schoner mileu.

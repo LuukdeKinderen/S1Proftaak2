@@ -9,11 +9,11 @@
 #include <LiquidCrystal_I2C.h>
 
 // Settings
-  #define stripPin0 9
-  #define stripPin1 8
+  #define stripPin0 12
+  #define stripPin1 13
   #define numberLed 120
   #define numberStrip 2
-  #define conformationBtn 10
+  #define conformationBtn 47
   #define pot A0
   #define SS_PIN 53
   #define RST_PIN 49
@@ -37,8 +37,8 @@ char hexaKeys[ROWS][COLS] = {
   {'*', '0', '#'}
 };
 
-byte rowPins[ROWS] = {12, 11, 7, 6}; 
-byte colPins[COLS] = {5, 4, 3}; 
+byte rowPins[ROWS] = {23, 25, 27, 29}; 
+byte colPins[COLS] = {31, 33, 35}; 
 String keyString = "";
 
 
@@ -126,11 +126,9 @@ void loop() {
 
     switch (adress) {
     case 4:
-
       lcd.clear();
       lcd.setCursor(0, 0);
-      lcd.print("Saldo vernieuwd");
-
+      lcd.print("Saldo verhoogd");
       break;
     case 9:
       for (int i = 0; i < 120; i++) {
@@ -184,6 +182,7 @@ void loop() {
               }
               UID = ConvertUID(bufferUID);
               selecting = true;
+              CleanUp();
               Serial.print("FxFF 3 GetStations~");
             }
           }

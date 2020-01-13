@@ -13,11 +13,11 @@ namespace TrainScheme1
         //Space to leave clear in front of train
         private int clearSpace = 6;
 
-        Rail[,] rails = new Rail[2, 120];
+        private Rail[,] rails = new Rail[2, 120];
 
 
-        List<Station> stations = new List<Station>();
-        List<Train> trains = new List<Train>();
+        private List<Station> stations = new List<Station>();
+        private List<Train> trains = new List<Train>();
 
 
         public TrainBehaviour()
