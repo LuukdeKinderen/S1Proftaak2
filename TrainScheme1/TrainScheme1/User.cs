@@ -35,17 +35,18 @@ namespace TrainScheme1
             {
                 if (InCheck(bufferStation))
                 {
-                    return UID + " ingechecked op " + bufferStation.name;
+
+                    return "ingechecked";
                 }
                 else
                 {
-                    return UID + " heeft te weinig saldo";
+                    return "saldo";
                 }
             }
             else
             {
                 UitCheck(bufferStation);
-                return UID + " uitgechecked op: " + bufferStation.name + "\nNieuw saldo: " + balans;
+                return "uitgechecked";
             }
         }
 

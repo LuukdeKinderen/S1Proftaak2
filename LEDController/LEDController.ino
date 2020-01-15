@@ -25,6 +25,8 @@ CRGB leds[numberStrip][numberLed];
 char bufferInput[1000];
 bool selecting = false;
 String Keyword_Start = "FxFF";
+unsigned long lastTime = 0;
+bool timerOn = true;
 
 //keypad
 const byte ROWS = 4;
@@ -60,11 +62,6 @@ void setup() {
   Serial.begin(250000);
   lcd.begin(16, 2);
   lcd.backlight();
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Scan een pas");
-  lcd.setCursor(0, 1);
-  lcd.print("om te beginnen");
   FastLED.addLeds < WS2812, stripPin0, GRB > (leds[0], numberLed);
   FastLED.addLeds < WS2812, stripPin1, GRB > (leds[1], numberLed);
 
@@ -91,6 +88,14 @@ void setup() {
 }
 
 void loop() {
+  if(millis() - lastTime > 2000 && timerOn){
+    timerOn = false;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Scan een pas");
+    lcd.setCursor(0, 1);
+    lcd.print("om te beginnen");
+  }
 
   int readBit = 0;
   bool done;
@@ -126,9 +131,28 @@ void loop() {
 
     switch (adress) {
     case 4:
-      lcd.clear();
-      lcd.setCursor(0, 0);
-      lcd.print("Saldo verhoogd");
+    lastTime = millis();
+    timerOn = true;
+      if (bufferInput[readBit] == '0') {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Saldo verhoogd");
+      }
+      if (bufferInput[readBit] == '1') {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Ingechecked");
+      }
+      if (bufferInput[readBit] == '2') {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Uitgechecked");
+      }
+      if (bufferInput[readBit] == '3') {
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Saldo te laag");
+      }
       break;
     case 9:
       for (int i = 0; i < 120; i++) {

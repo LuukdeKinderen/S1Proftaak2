@@ -95,8 +95,20 @@ namespace TrainScheme1
                             int stationIndex;
                             string UID = command.Split(',')[0];
                             if(int.TryParse(command.Split(',')[1], out stationIndex)){
+                                string msg = userManager.GetUser(UID).checken(trainBehaviour.GetStation(stationIndex));
+                                switch (msg)
+                                {
+                                    case "ingechecked":
+                                        SerialPort1.Write("FxFF 4 1~");
+                                        break;
+                                    case "uitgechecked":
+                                        SerialPort1.Write("FxFF 4 2~");
+                                        break;
+                                    case "saldo":
+                                        SerialPort1.Write("FxFF 4 3~");
+                                        break;
+                                }
 
-                                Debug.WriteLine(userManager.GetUser(UID).checken(trainBehaviour.GetStation(stationIndex)));
                             }
                             onHold = false;
                             break;
@@ -116,8 +128,7 @@ namespace TrainScheme1
                         double _current = request.GetData(uid);
                         double _new = _current + _addition;
                         request.SendGetData(uid, _new.ToString(), "0");
-                        SerialPort1.Write("FxFF 4 " + request.GetData(uid).ToString() + "~");
-                        Debug.WriteLine(command);
+                        SerialPort1.Write("FxFF 4 0~");
                     }
                     onHold = false;
                     break;
