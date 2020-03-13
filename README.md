@@ -1,11 +1,11 @@
 # Proftaak2
 
-# Opdracht omschrijving
-Kies een project uit proftaak 1 en breid dit project uit.
-Gekozen project: https://portal.fhict.nl/Studentenplein/Inlevermap%20startsemester%20B%20Hamels/PD13_groep2_SeatCheck.pdf
+## Project omschrijving
+We gaan de drempel om voor het eerst de trein te nemen verlagen. Dit doen we door een simulatie van de trein te maken zodat gebruikers kunnen oefenen hoe de trein werkt. Voor de simulatie zijn ledstrips op tafel aangebracht. Deze ledstrips moeten een treinrails voorstellen. Halverwege de ledstrips zijn een aantal stations te vinden. je kunt inchecken als een trein op het station staat. je kunt weer uitchecken als de trein op een ander station staat. Het in en uitchecken gebeurd met een NFC reader. Er wordt in een database bijgehouden hoeveel saldo je hebt en afhankelijk van hoe ver je hebt gereisd wordt een bedrag afgeschreven van je chip. 
 
-# Project omschrijving
-We gaan de drempel om voor het eerst de trein te nemen verlagen. Dit doen we door een simulatie van de trein te maken zodat gebruikers kunnen oefenen hoe de trein werkt. Voor de simulatie zijn ledstrips op tafel aangebracht. Deze ledstrips moeten een treinrails voorstellen. Halverwege de ledstrips zijn een aantal stations te vinden. je kunt inchecken als een trein op het station staat. je kunt weer uitchecken als de trein op een ander station staat. Het in en uitchecken gebeurd met een chiplezer. Er wordt bijgehouden hoeveel saldo je hebt en afhankelijk van hoe ver je hebt gerezen wordt een bedrag afgeschreven van de chip. Ook is te zien hoe druk het in elke deel van de trein is. Als een treindeel erg druk is dan is dit te zien aan een rood ledje. Als een treindeel medium vol zit, kleurt het ledje geel. Wanneer het rustig is in een treindeel, dan kleurt dat treindeel groen. Om te weten welke trein je kunt nemen om bij je eindbestemming te komen kun je onze app gebruiken om de laatste reisinformatie te zien. Ook is er gratis wifi en een streamingsdienst voor video’s aanwezig. 
+## Hoe werkt het
+Het systeem werkt als volgt: Op een computer word in een losse C# applicatie berekend hoe de treinen moeten reizen. Daarna wordt in datzelfde programma berekend hoe de ledstrip er uit moet komen te zien. Dit wordt vervolgens via Seriële communicatie naar een Arduino gestuurd. Deze Arduino zorgt er vervolgens voor dat de ledstrip er uit komt te zien zoals de C# applicatie heeft berekend.
+Daarnaast kan de Arduino het hele programma stil leggen als hij een NFC kaart detecteert. Dan kan de gebruiker een station selecteren om in-/ uit te checken. Of zijn saldo opwaarderen.  
 
-# Doel en doelgroep omschrijving
-Wij willen mensen die (nog) niet bekend zijn met het nederlandse trein systeem een simulatie van reizen met de trein aanbieden. Op deze manier kunnen deze mensen in een rustige omgeving, oefenen hoe je met de trein reist. Mensen leren hoe je moet in en uitche Onze doelgroep; mensen die niet bekend zijn met het nederlandse trein systeem. 
+## Bekijk de video!
+[![Bekijk de video](/Logo.png)](https://youtu.be/H14BrgL_wlc)

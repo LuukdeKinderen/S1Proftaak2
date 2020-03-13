@@ -46,7 +46,7 @@ namespace TrainScheme1
             }
 
 
-            timer.Interval = 500;
+            timer.Interval = 200;
             timer.Elapsed += CycleTick;
             timer.Start();
 
